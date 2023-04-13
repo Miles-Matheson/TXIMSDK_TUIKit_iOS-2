@@ -3,11 +3,11 @@
 Pod::Spec.new do |s|
 
 
-  s.name         = "TXIMSDK_TUIKit_iOS"
+  s.name         = "TXIMSDK_TUIKit_iOS_A"
 
   s.version      = "0.0.13"
 
-  s.summary      = "iOS TUIKit TUIKit"
+  s.summary      = "iOS TUIKit TUIKit_A"
 
   s.description  = <<-DESC
   					能优化和严格的内存控制让其运行更加的流畅和稳健。
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.libraries = 'c++'
 
-  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.22" }
+  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS-2.git", :tag => "0.0.22" }
 
   s.requires_arc = true
 
