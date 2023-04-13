@@ -6248,21 +6248,25 @@ static AFHTTPSessionManager *_session;
 {
     if (indexPath.section == 0) {
         NeighborsSimpleCuteSettingHeaderOtherViewCell *headerCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingHeaderOtherViewCell" forIndexPath:indexPath];
+        
         NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
         NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
         NSLog(@"imageUrlimageUrl:%@",imageUrl);
-        [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-//                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-//        // 保存文件的名称
-//        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-//        NSLog(@"img:%@",img);
-//        if (img) {
-//                headerCell.iconImg.image = img;
-//            }else{
-//                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-//        }
+
+        
+        
+//        [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        // 保存文件的名称
+        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"img:%@",img);
+        if (img) {
+                headerCell.iconImg.image = img;
+            }else{
+                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        }
         NSString *userName = [NeighborsSimpleCuteUserModel getUserInfo].userInfo.nickName;
         [headerCell.nameBtn setTitle:userName forState:UIControlStateNormal];
         if ([self.memberLevel intValue] == 1) {
@@ -7747,7 +7751,7 @@ static AFHTTPSessionManager *_session;
 /// 新ui设计的功能
 @interface NeighborsSimpleCuteSettingHeaderOtherViewCell ()
 
-
+//@property (nonatomic,strong)UIImageView *iconImg;
 @end
 
 @implementation NeighborsSimpleCuteSettingHeaderOtherViewCell
@@ -9505,10 +9509,24 @@ static AFHTTPSessionManager *_session;
 {
     if (indexPath.section == 0) {
         self.headerCell = [tableView dequeueReusableCellWithIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell" forIndexPath:indexPath];
-        NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
-        NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
-        NSLog(@"imageUrlimageUrl:%@",imageUrl);
-        [self.headerCell.headeImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
+//        NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
+//        NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
+//        NSLog(@"imageUrlimageUrl:%@",imageUrl);
+//        [self.headerCell.headeImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
+        
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        // 保存文件的名称
+        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"img:%@",img);
+        if (img) {
+            self.headerCell.headeImage.image = img;
+            }else{
+                self.headerCell.headeImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        }
+        
         self.headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return self.headerCell;
     }else if(indexPath.section == 1){

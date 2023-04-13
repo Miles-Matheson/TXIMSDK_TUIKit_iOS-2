@@ -7,6 +7,15 @@
 
 #define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
 
+/** 启动图来源 */
+typedef NS_ENUM(NSInteger,SourceType) {
+    
+    /** LaunchScreen.storyboard */
+    SourceTypeLaunchScreen = 0,
+    /** LaunchImage(default) */
+    SourceTypeLaunchImage = 1,
+};
+
 /**
  *  头像大图的显示界面
  *  本类的整体逻辑与图片消息的大图显示界面类似。
@@ -48,6 +57,8 @@ typedef enum{
 @end
 
 @interface NeighborsSimpleCuteLaunchMainController : UIViewController
+
+@property(nonatomic,assign)SourceType launchType;
 
 @end
 
