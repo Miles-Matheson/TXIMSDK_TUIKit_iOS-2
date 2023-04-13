@@ -505,6 +505,83 @@
 @property (nonatomic,strong)UIImageView *bgImageView;
 @end
 @implementation NeighborsSimpleCuteLaunchMainController
+
+
+-(UIImage *)imageFromLaunchImage{
+    UIImage *imageP = [self launchImageWithType:@"Portrait"];
+    if(imageP) return imageP;
+    UIImage *imageL = [self launchImageWithType:@"Landscape"];
+    if(imageL)  return imageL;
+    NSLog(@"获取LaunchImage失败!请检查是否添加启动图,或者规格是否有误.");
+    return nil;
+}
+
+
+-(UIImage *)launchImageWithType:(NSString *)type{
+    //比对分辨率,获取启动图 fix #158:https://github.com/CoderZhuXH/XHLaunchAd/issues/158
+    CGFloat screenScale = [UIScreen mainScreen].scale;
+    CGSize screenDipSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * screenScale, [UIScreen mainScreen].bounds.size.height * screenScale);
+    NSString *viewOrientation = type;
+    NSArray* imagesDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
+    for (NSDictionary* dict in imagesDict){
+        UIImage *image = [UIImage imageNamed:dict[@"UILaunchImageName"]];
+        CGSize imageDpiSize = CGSizeMake(CGImageGetWidth(image.CGImage), CGImageGetHeight(image.CGImage));
+        if([viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]]){
+            if([dict[@"UILaunchImageOrientation"] isEqualToString:@"Landscape"]){
+                imageDpiSize = CGSizeMake(imageDpiSize.height, imageDpiSize.width);
+            }
+            if(CGSizeEqualToSize(screenDipSize, imageDpiSize)){
+                return image;
+            }
+        }
+    }
+    return nil;
+}
+
+
+
+- (UIImage *)imageFromLaunchScreen{
+
+    NSString *cacheDir = [self launchImageCacheDirectory];
+    NSFileManager *fm = [NSFileManager defaultManager];
+
+    UIImage *launchImage = nil;
+    for (NSString *name in [fm contentsOfDirectoryAtPath:cacheDir error:nil]) {
+        if ([name hasSuffix:@".ktx"] || [name hasSuffix:@".png"]) {
+            NSString *filePath = [cacheDir stringByAppendingPathComponent:name];
+            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            UIImage *image = [UIImage imageWithData:data];
+            if (image.size.width < image.size.height) {
+                launchImage = image;
+                break;
+            }
+        }
+    }
+    return launchImage;
+}
+
+///// 系统启动图缓存路径
+-(NSString *)launchImageCacheDirectory {
+
+    NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+    NSFileManager *fm = [NSFileManager defaultManager];
+
+    // iOS13之前
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *snapshotsPath = [[cachesDirectory stringByAppendingPathComponent:@"Snapshots"] stringByAppendingPathComponent:bundleID];
+    if ([fm fileExistsAtPath:snapshotsPath]) {
+        return snapshotsPath;
+    }
+
+    // iOS13
+    NSString *libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+    snapshotsPath = [NSString stringWithFormat:@"%@/SplashBoard/Snapshots/%@ - {DEFAULT GROUP}", libraryDirectory, bundleID];
+    if ([fm fileExistsAtPath:snapshotsPath]) {
+        return snapshotsPath;
+    }
+    return nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
@@ -521,7 +598,8 @@
 {
     if (!_bgImageView) {
         _bgImageView = [[UIImageView alloc]init];
-        _bgImageView.image = [UIImage imageNamed:TUIKitResource(@"n_root_lab")];
+        _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+//        _bgImageView.image = [UIImage imageNamed:TUIKitResource(@"n_root_lab")];
     }
     return _bgImageView;
 }
@@ -529,10 +607,24 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = RGB(31, 31, 31);
-    [self.view addSubview:self.bgImageView];
-    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.mas_equalTo(self.view);
-    }];
+
+    if (_launchType == SourceTypeLaunchScreen){
+        
+        self.bgImageView.image = [self imageFromLaunchScreen];
+        [self.view addSubview:self.bgImageView];
+        [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        }];
+    }else  if(_launchType == SourceTypeLaunchImage){
+        
+        self.bgImageView.image = [self imageFromLaunchImage];
+        [self.view addSubview:self.bgImageView];
+        [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        }];
+        
+    }
+
 }
 - (void)viewDidAppear:(BOOL)animated
 {
