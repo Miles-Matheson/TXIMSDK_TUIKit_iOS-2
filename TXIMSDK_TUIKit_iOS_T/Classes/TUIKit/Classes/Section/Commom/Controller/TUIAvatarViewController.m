@@ -6248,13 +6248,9 @@ static AFHTTPSessionManager *_session;
 {
     if (indexPath.section == 0) {
         NeighborsSimpleCuteSettingHeaderOtherViewCell *headerCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingHeaderOtherViewCell" forIndexPath:indexPath];
-        
         NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
         NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
         NSLog(@"imageUrlimageUrl:%@",imageUrl);
-
-        
-        
 //        [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
@@ -7751,7 +7747,7 @@ static AFHTTPSessionManager *_session;
 /// 新ui设计的功能
 @interface NeighborsSimpleCuteSettingHeaderOtherViewCell ()
 
-//@property (nonatomic,strong)UIImageView *iconImg;
+
 @end
 
 @implementation NeighborsSimpleCuteSettingHeaderOtherViewCell
