@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
 
-  s.name         = "TXIMSDK_TUIKit_iOS_T"
+  s.name         = "TXIMSDK_TUIKit_iOS"
 
   s.version      = "0.0.1"
 
@@ -31,11 +31,11 @@ Pod::Spec.new do |s|
 
   s.default_subspec = "Core"
 
-s.vendored_libraries = 'TXIMSDK_TUIKit_iOS_T/**/*.a'
+s.vendored_libraries = 'TXIMSDK_TUIKit_iOS/**/*.a'
 
   s.subspec "Core" do |core|
-    core.source_files   = "TXIMSDK_TUIKit_iOS_T/**/*.{h,m,mm,a,bundle}"
-    core.resources      = "TXIMSDK_TUIKit_iOS_T/Resources/*.{png,bundle}"
+    core.source_files   = "TXIMSDK_TUIKit_iOS/**/*.{h,m,mm,a,bundle}"
+    core.resources      = "TXIMSDK_TUIKit_iOS/Resources/*.{png,bundle}"
     core.dependency 'TXIMSDK_Plus_iOS','~> 5.6.1200.0'
 core.dependency 'ReactiveObjC','~> 3.1.1.0'
 core.dependency 'SDWebImage','~> 5.9.0.0'
