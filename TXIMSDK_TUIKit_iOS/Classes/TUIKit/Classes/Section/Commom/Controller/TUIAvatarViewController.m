@@ -50,32 +50,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.saveBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     self.saveShadowImage = self.navigationController.navigationBar.shadowImage;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-
+    
     self.avatarScrollView = [[TScrollView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.avatarScrollView];
     self.avatarScrollView.backgroundColor = [UIColor blackColor];
     self.avatarScrollView.mm_fill();
-
+    
     self.avatarView = [[UIImageView alloc] initWithImage:self.avatarData.avatarImage];
     self.avatarScrollView.imageView = self.avatarView;
     self.avatarScrollView.maximumZoomScale = 4.0;
     self.avatarScrollView.delegate = self;
-
+    
     self.avatarView.image = self.avatarData.avatarImage;
     TUIProfileCardCellData *data = self.avatarData;
     /*
      @weakify(self)
-    [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
-        @strongify(self)
-        [self.avatarView sd_setImageWithURL:x placeholderImage:self.avatarData.avatarImage];
-    }];
-    */
+     [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
+     @strongify(self)
+     [self.avatarView sd_setImageWithURL:x placeholderImage:self.avatarData.avatarImage];
+     }];
+     */
     @weakify(self)
     [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
         @strongify(self)
@@ -131,9 +131,9 @@
         UINavigationBarAppearance *appence = [[UINavigationBarAppearance alloc]init];
         [appence configureWithOpaqueBackground];
         NSDictionary * attributes = @{
-                                   NSForegroundColorAttributeName:[UIColor whiteColor],
-                                    NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
-                                      };
+            NSForegroundColorAttributeName:[UIColor whiteColor],
+            NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
+        };
         [appence setTitleTextAttributes:attributes];
         appence.backgroundColor = NSC_MainThemColor;
         self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
@@ -145,19 +145,19 @@
         [self setNeedsStatusBarAppearanceUpdate];
     }else{
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-            {
-                self.automaticallyAdjustsScrollViewInsets = NO;
-                self.edgesForExtendedLayout = UIRectEdgeAll;
-                NSDictionary * attributes = @{
-                     NSForegroundColorAttributeName:/*/RGB(237, 151, 64)*/[UIColor whiteColor],
-                     NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
-                                               };
-                [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-                self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
-                [self.navigationController.navigationBar setTranslucent:NO];
-                [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-                self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-                [self setNeedsStatusBarAppearanceUpdate];
+        {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            self.edgesForExtendedLayout = UIRectEdgeAll;
+            NSDictionary * attributes = @{
+                NSForegroundColorAttributeName:/*/RGB(237, 151, 64)*/[UIColor whiteColor],
+                NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
+            };
+            [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+            self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
+            [self.navigationController.navigationBar setTranslucent:NO];
+            [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+            self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+            [self setNeedsStatusBarAppearanceUpdate];
         }
     }
     [self setNSCBackwardButton];
@@ -183,7 +183,7 @@
     // 根据viewControllers的个数来判断此控制器是被present的还是被push的
     if (1 <= viewControllers.count && 0 < [viewControllers indexOfObject:self])
     {
-         [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }else
     {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -260,7 +260,7 @@
         _webView.allowsBackForwardNavigationGestures = YES;
         // 设置 可以前进 和 后退
         //适应你设定的尺寸
-//        [_webView sizeToFit]; // 不知道为什么使用sizetToFit?
+        //        [_webView sizeToFit]; // 不知道为什么使用sizetToFit?
         [_webView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _webView;
@@ -268,7 +268,7 @@
 - (UIProgressView *)progressView{
     if (!_progressView) {
         _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-         _progressView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 1);
+        _progressView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 1);
         // 设置进度条的底彩
         [_progressView setTrackTintColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0]];
         _progressView.progressTintColor = [UIColor redColor];
@@ -329,8 +329,8 @@
         }
         case WKWebLoadTypePOSTWebURLString:{
             // JS发送POST的Flag，为真的时候会调用JS的POST方法
-//            self.needLoadJSPOST = YES;
-//            //POST使用预先加载本地JS方法的html实现，请确认WKJSPOST存在
+            //            self.needLoadJSPOST = YES;
+            //            //POST使用预先加载本地JS方法的html实现，请确认WKJSPOST存在
             [self loadHostHtml:@"WKJSPOST"];
             break;
         }
@@ -387,16 +387,16 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     NSString *baseUrl = [NSString stringWithFormat:@"https://api.ipplus360.com/ip/geo/v1/district/?key=Bi8Qh7xb0sqb5r8PZYHt1KizxkRtDs5Nm9CSTUFa7FViG9WvNDur7tI2t2SIv4Ef&ip=%@&coordsys=WGS84&area=multi",[NeighborsSimpleTool getCurentLocalIP]];
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]GET:baseUrl parameters:param success:^(NSDictionary *response) {
-            NSLog(@"response.date1111:%@",response);
-            BOOL isFlag = NO;
-            NSString *ipContentStr = [response mj_JSONString];
-            NSLog(@"ipContentStr:%@",ipContentStr);
-            NSMutableArray *countryArr = [NSMutableArray array];
-            if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@";"]) {
-                [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@";"]];
-            }else{
-                [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
-            }
+        NSLog(@"response.date1111:%@",response);
+        BOOL isFlag = NO;
+        NSString *ipContentStr = [response mj_JSONString];
+        NSLog(@"ipContentStr:%@",ipContentStr);
+        NSMutableArray *countryArr = [NSMutableArray array];
+        if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@";"]) {
+            [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@";"]];
+        }else{
+            [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
+        }
         for (int i = 0; i< countryArr.count; i++) {
             NSString *countryStr2 = countryArr[i];
             NSLog(@"countryStr2countryStr2:%@",countryStr2);
@@ -424,16 +424,16 @@
                     [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
                 }
             }else{
-                    NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                    basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
-                    basewebvc.loadType = WKWebLoadTypeWebURLString;
-                    [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
-                }
+                NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
+                basewebvc.loadType = WKWebLoadTypeWebURLString;
+                [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
             }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showInfoWithStatus:@"Request failed"];
-            return;
-        }];
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
+    }];
 }
 -(void)actionSendFeedbackWithContent:(NSString *)contentStr
 {
@@ -541,10 +541,10 @@
 
 
 - (UIImage *)imageFromLaunchScreen{
-
+    
     NSString *cacheDir = [self launchImageCacheDirectory];
     NSFileManager *fm = [NSFileManager defaultManager];
-
+    
     UIImage *launchImage = nil;
     for (NSString *name in [fm contentsOfDirectoryAtPath:cacheDir error:nil]) {
         if ([name hasSuffix:@".ktx"] || [name hasSuffix:@".png"]) {
@@ -562,17 +562,17 @@
 
 ///// 系统启动图缓存路径
 -(NSString *)launchImageCacheDirectory {
-
+    
     NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
     NSFileManager *fm = [NSFileManager defaultManager];
-
+    
     // iOS13之前
     NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     NSString *snapshotsPath = [[cachesDirectory stringByAppendingPathComponent:@"Snapshots"] stringByAppendingPathComponent:bundleID];
     if ([fm fileExistsAtPath:snapshotsPath]) {
         return snapshotsPath;
     }
-
+    
     // iOS13
     NSString *libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
     snapshotsPath = [NSString stringWithFormat:@"%@/SplashBoard/Snapshots/%@ - {DEFAULT GROUP}", libraryDirectory, bundleID];
@@ -599,7 +599,7 @@
     if (!_bgImageView) {
         _bgImageView = [[UIImageView alloc]init];
         _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
-//        _bgImageView.image = [UIImage imageNamed:TUIKitResource(@"n_root_lab")];
+        //        _bgImageView.image = [UIImage imageNamed:TUIKitResource(@"n_root_lab")];
     }
     return _bgImageView;
 }
@@ -607,7 +607,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = RGB(31, 31, 31);
-
+    
     if (_launchType == SourceTypeLaunchScreen){
         
         self.bgImageView.image = [self imageFromLaunchScreen];
@@ -624,7 +624,7 @@
         }];
         
     }
-
+    
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -637,33 +637,33 @@
     [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         NSLog(@"status:%ld",(long)status);
         if(status ==AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            [self actionAutoLogin];
+            [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
+        }else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The network request failed. Do you try again?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction        = [UIAlertAction actionWithTitle:@"Exit" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [UIView beginAnimations:@"exitApplication" context:nil];
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view.window cache:NO];
+                [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+                self.view.window.bounds = CGRectMake(0, 0, 0, 0);
+                [UIView commitAnimations];
+            }];
+            UIAlertAction *okaction            = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [self actionAutoLogin];
-                [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
-            }else {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The network request failed. Do you try again?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancelAction        = [UIAlertAction actionWithTitle:@"Exit" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    [UIView beginAnimations:@"exitApplication" context:nil];
-                    [UIView setAnimationDuration:0.5];
-                    [UIView setAnimationDelegate:self];
-                    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view.window cache:NO];
-                    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
-                    self.view.window.bounds = CGRectMake(0, 0, 0, 0);
-                    [UIView commitAnimations];
-                }];
-                UIAlertAction *okaction            = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    [self actionAutoLogin];
-                }];
-                [alertController addAction:cancelAction];
-                [alertController addAction:okaction];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:okaction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
     }];
 }
 -(void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     if ([animationID compare:@"exitApplication"] == 0) {
-       //退出代码
-       exit(0);
-   }
+        //退出代码
+        exit(0);
+    }
 }
 -(void)actionAutoLogin
 {
@@ -671,70 +671,70 @@
     NSString *baseUrl = [NSString stringWithFormat:@"%@%@",NSC_Base_Url,@"api/client/info/810011001"];
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]GET:baseUrl parameters:param success:^(NSDictionary *response) {
         NeighborsSimpleCuteResposeModel *response2 = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:response];
-            if(response2.code == 0) {
-                    NSLog(@"response.data:%@",response2.data);
-                    NeighborsSimpleClinentInfo *clientInfo = [NeighborsSimpleClinentInfo mj_objectWithKeyValues:response2.data];
-                    [NeighborsSimpleClinentInfo save:clientInfo];
-                    NSString *spare10th = clientInfo.spare10th;
-                    NSLog(@"spare10th:%@",spare10th);
-                    if ([spare10th isEqualToString:@"0"]) {
-                        //审核版本
-                        BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
-                        if (!isLogin) {
-                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
-                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-                            }else{
-                                
-                                BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-                                if (isShow == YES) {
-                                    //两个按钮的
-                                    NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-                                    UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-                                    [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-                                }else{
-                                    //一个按钮的
-                                    NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-                                    UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-                                    [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-                                }
-                                
-                            }
-                    }else if([spare10th isEqualToString:@"2"]){
-                       //打开链接功能
-                        BOOL isStatus = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_OpenStatus];
-                        if (!isStatus) {
-                            //没有打开
-                            NSLog(@"没有注册");
-                            BOOL isRegsiter  = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_Register];
-                            if (!isRegsiter) {
-                                //没有注册过要注册
-                                [self GetThirdData];
-                            }else{
-                                //注册过了直接登陆
-                                NSLog(@"注册过了直接登陆");
-                                NSString *account = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_account];
-                                NSString *pwdStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_pwd];
-                                NSLog(@"account:%@",account);
-                                NSLog(@"pwd:%@",pwdStr);
-                                [self actonLoginAccountWithAccount:account withPwdStr:pwdStr];
-                            }
-                        }else{
-                            //打开过
-                            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
-                            [[NSUserDefaults standardUserDefaults]synchronize];
-                            NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                            basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
-                            basewebvc.loadType = WKWebLoadTypeWebURLString;
-                            [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
-                        }
-                        
+        if(response2.code == 0) {
+            NSLog(@"response.data:%@",response2.data);
+            NeighborsSimpleClinentInfo *clientInfo = [NeighborsSimpleClinentInfo mj_objectWithKeyValues:response2.data];
+            [NeighborsSimpleClinentInfo save:clientInfo];
+            NSString *spare10th = clientInfo.spare10th;
+            NSLog(@"spare10th:%@",spare10th);
+            if ([spare10th isEqualToString:@"0"]) {
+                //审核版本
+                BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
+                if (!isLogin) {
+                    NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
+                    UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+                }else{
+                    
+                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+                    if (isShow == YES) {
+                        //两个按钮的
+                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+                    }else{
+                        //一个按钮的
+                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
                     }
+                    
                 }
-            }failure:^(NSError *error) {
-                [SVProgressHUD showInfoWithStatus:@"Request failed"];
-                return;
-        }];
+            }else if([spare10th isEqualToString:@"2"]){
+                //打开链接功能
+                BOOL isStatus = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_OpenStatus];
+                if (!isStatus) {
+                    //没有打开
+                    NSLog(@"没有注册");
+                    BOOL isRegsiter  = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_Register];
+                    if (!isRegsiter) {
+                        //没有注册过要注册
+                        [self GetThirdData];
+                    }else{
+                        //注册过了直接登陆
+                        NSLog(@"注册过了直接登陆");
+                        NSString *account = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_account];
+                        NSString *pwdStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_pwd];
+                        NSLog(@"account:%@",account);
+                        NSLog(@"pwd:%@",pwdStr);
+                        [self actonLoginAccountWithAccount:account withPwdStr:pwdStr];
+                    }
+                }else{
+                    //打开过
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                    basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
+                    basewebvc.loadType = WKWebLoadTypeWebURLString;
+                    [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
+                }
+                
+            }
+        }
+    }failure:^(NSError *error) {
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
+    }];
     
 }
 
@@ -787,54 +787,54 @@
         BOOL isFlag = NO;
         NSMutableArray *countryArr = [NSMutableArray array];
         if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@","]) {
-                [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@","]];
-            }else{
-                [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
+            [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@","]];
+        }else{
+            [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
+        }
+        for (int i = 0; i< countryArr.count; i++) {
+            NSString *countryStr2 = countryArr[i];
+            NSLog(@"countryStr2countryStr2:%@",countryStr2);
+            if ([ipContentStr containsString:countryStr2]) {
+                isFlag = YES;
+                break;
             }
-            for (int i = 0; i< countryArr.count; i++) {
-                    NSString *countryStr2 = countryArr[i];
-                    NSLog(@"countryStr2countryStr2:%@",countryStr2);
-                    if ([ipContentStr containsString:countryStr2]) {
-                        isFlag = YES;
-                        break;
+        }
+        if (isFlag == YES) {
+            //包含了
+            NSLog(@"包含了");
+            [self actionSendFeedbackWithContent:ipContentStr];
+        }else{
+            //没有包含
+            NSLog(@"没有包含");
+            if ([NeighborsSimpleTool isVPNOn] == YES) {
+                BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
+                if (!isLogin) {
+                    NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
+                    UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+                }else{
+                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+                    if (isShow == YES) {
+                        //两个按钮的
+                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+                    }else{
+                        //一个按钮的
+                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
                     }
                 }
-                if (isFlag == YES) {
-                    //包含了
-                    NSLog(@"包含了");
-                    [self actionSendFeedbackWithContent:ipContentStr];
-                }else{
-                    //没有包含
-                    NSLog(@"没有包含");
-                    if ([NeighborsSimpleTool isVPNOn] == YES) {
-                        BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
-                        if (!isLogin) {
-                            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
-                            UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                            [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-                        }else{
-                            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-                            if (isShow == YES) {
-                                //两个按钮的
-                                NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-                            }else{
-                                //一个按钮的
-                                NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-                                UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-                                [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-                            }
-                        }
-                    }else{
-                            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
-                            [[NSUserDefaults standardUserDefaults]synchronize];
-                            NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                            basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
-                            basewebvc.loadType = WKWebLoadTypeWebURLString;
-                            [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
-                        }
-                    }
+            }else{
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
+                basewebvc.loadType = WKWebLoadTypeWebURLString;
+                [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
+            }
+        }
     }failure:^(NSError *error) {
         [SVProgressHUD showInfoWithStatus:@"Request failed"];
         return;
@@ -858,7 +858,7 @@
         if (response.code == 0) {
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_Register];
             [[NSUserDefaults standardUserDefaults]setObject:accountStr forKey:NeighborsSimple_account];
-        [[NSUserDefaults standardUserDefaults]setObject:@"123456" forKey:NeighborsSimple_pwd];
+            [[NSUserDefaults standardUserDefaults]setObject:@"123456" forKey:NeighborsSimple_pwd];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [self actonLoginAccountWithAccount:accountStr withPwdStr:@"123456"];
         }else{
@@ -866,8 +866,8 @@
             return;
         }
     } failure:^(NSError *error) {
-            [SVProgressHUD showInfoWithStatus:@"Request failed"];
-            return;
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
     }];
 }
 -(void)actionSendFeedbackWithContent:(NSString *)contentStr
@@ -1004,7 +1004,7 @@
     [self.bg_img mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.centerY.mas_equalTo(self.view).offset(-30);
-       // make.top.mas_equalTo(self.top_img.mas_bottom).offset(20);
+        // make.top.mas_equalTo(self.top_img.mas_bottom).offset(20);
     }];
     [self.view addSubview:self.signIn_Btn];
     [self.signIn_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1165,7 +1165,7 @@
 /// @param btn continute btn
 -(void)actonContinuteBtn:(UIButton *)btn
 {
-   
+    
     [self.view endEditing:YES];
     if (IS_EMPTY(self.email_tf.text)) {
         [SVProgressHUD showInfoWithStatus:@"Please enter the email"];
@@ -1204,7 +1204,7 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
             [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
             [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-
+            
             [[NSUserDefaults standardUserDefaults]synchronize];
             BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
             if (isShow == YES) {
@@ -1228,58 +1228,58 @@
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
     }];
-//    if([self.email_tf.text isEqualToString:NeighborsSimpleEmailName] && [self.pwd_tf.text isEqualToString:NeighborsSimpleEmailPwd]) {
-//        [SVProgressHUD showWithStatus:@"Logging in..."];
-//        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [SVProgressHUD dismiss];
-//                    [SVProgressHUD showInfoWithStatus:@"Login successful"];
-//                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"Jack" forKey:NeighborsSimple_EmailUser];
-//                    [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
-//                    [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                    [[NSUserDefaults standardUserDefaults]synchronize];
-//                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-//                    if (isShow == YES) {
-//                        //两个按钮的
-//                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-//                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-//                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-//                    }else{
-//                        //一个按钮的
-//                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                    }
-//            });
-//        });
-//    }else{
-//        NSString *username = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailName];
-//        NSString *userpwd = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailPwd];
-//        if ([username isEqualToString:self.email_tf.text] && [userpwd isEqualToString:self.pwd_tf.text]) {
-//              [SVProgressHUD showWithStatus:@"Logging in..."];
-//              dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                      dispatch_async(dispatch_get_main_queue(), ^{
-//                          [SVProgressHUD dismiss];
-//                          [SVProgressHUD showInfoWithStatus:@"Login successful"];
-//                          [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
-//                          [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                          [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                          [[NSUserDefaults standardUserDefaults]synchronize];
-//                          NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                          UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                          [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                  });
-//              });
-//          }else{
-//              [SVProgressHUD showInfoWithStatus:@"account or password is incorrect  or account does not exist"];
-//              return;
-//          }
-//    }
+    //    if([self.email_tf.text isEqualToString:NeighborsSimpleEmailName] && [self.pwd_tf.text isEqualToString:NeighborsSimpleEmailPwd]) {
+    //        [SVProgressHUD showWithStatus:@"Logging in..."];
+    //        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                dispatch_async(dispatch_get_main_queue(), ^{
+    //                    [SVProgressHUD dismiss];
+    //                    [SVProgressHUD showInfoWithStatus:@"Login successful"];
+    //                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"Jack" forKey:NeighborsSimple_EmailUser];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                    [[NSUserDefaults standardUserDefaults]synchronize];
+    //                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+    //                    if (isShow == YES) {
+    //                        //两个按钮的
+    //                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+    //                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+    //                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+    //                    }else{
+    //                        //一个按钮的
+    //                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+    //                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+    //                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+    //                    }
+    //            });
+    //        });
+    //    }else{
+    //        NSString *username = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailName];
+    //        NSString *userpwd = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailPwd];
+    //        if ([username isEqualToString:self.email_tf.text] && [userpwd isEqualToString:self.pwd_tf.text]) {
+    //              [SVProgressHUD showWithStatus:@"Logging in..."];
+    //              dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                      dispatch_async(dispatch_get_main_queue(), ^{
+    //                          [SVProgressHUD dismiss];
+    //                          [SVProgressHUD showInfoWithStatus:@"Login successful"];
+    //                          [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
+    //                          [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                          [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                          [[NSUserDefaults standardUserDefaults]synchronize];
+    //                          NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+    //                          UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+    //                          [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+    //                  });
+    //              });
+    //          }else{
+    //              [SVProgressHUD showInfoWithStatus:@"account or password is incorrect  or account does not exist"];
+    //              return;
+    //          }
+    //    }
     
 }
 
@@ -1675,22 +1675,22 @@
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
     }];
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.username_tf.text forKey:NeighborsSimple_EmailUser];
-//                [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                [[NSUserDefaults standardUserDefaults]synchronize];
-//                NeighborsSimpleCuteUserWelcomeController *welcomevc = [[NeighborsSimpleCuteUserWelcomeController alloc]init];
-//                welcomevc.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:welcomevc animated:YES];
-//        });
-//    });
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.username_tf.text forKey:NeighborsSimple_EmailUser];
+    //                [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                [[NSUserDefaults standardUserDefaults]synchronize];
+    //                NeighborsSimpleCuteUserWelcomeController *welcomevc = [[NeighborsSimpleCuteUserWelcomeController alloc]init];
+    //                welcomevc.hidesBottomBarWhenPushed = YES;
+    //                [self.navigationController pushViewController:welcomevc animated:YES];
+    //        });
+    //    });
 }
 /// validate email
 /// @param emailStr isValdateEmail
@@ -1871,11 +1871,11 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Please pay attention to check if the sending is successful"];
-                [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please pay attention to check if the sending is successful"];
+            [self.navigationController popViewControllerAnimated:YES];
         });
     });
 }
@@ -1965,13 +1965,13 @@
 }
 
 - (void)saveImage:(UIImage *)image {
-   NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-   NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                         [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
-   BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
-   if (result == YES) {
-       NSLog(@"Save Success");
-   }
+    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                          [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
+    BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"Save Success");
+    }
 }
 - (UILabel *)avtor_lab
 {
@@ -2009,13 +2009,13 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                [SVProgressHUD dismiss];
-                [self actionLoginGoHome];
-                
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            [SVProgressHUD dismiss];
+            [self actionLoginGoHome];
+            
         });
     });
 }
@@ -2314,11 +2314,25 @@
     NSCParameterAssert(window);
     [window addSubview:playView];
     [playView setNeighborsSimpleCuteVoicePlayViewCallBlock:^{
-        NeighborsSimpleCuteVideoCallView *callView = [[NeighborsSimpleCuteVideoCallView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-        callView.voiceModel = model;
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        NSCParameterAssert(window);
-        [window addSubview:callView];
+        
+        
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {  if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {  if (granted) {
+                    // Microphone enabled code‘
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NeighborsSimpleCuteVideoCallView *callView = [[NeighborsSimpleCuteVideoCallView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+                        callView.voiceModel = model;
+                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                        NSCParameterAssert(window);
+                        [window addSubview:callView];
+                    });
+                }}];
+            });
+        }}];
+        
+        
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewReportBlock:^{
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
@@ -2332,11 +2346,11 @@
                     }];
                     [self.navigationController pushViewController:reportShowVc animated:YES];
                 });
-
+                
             } else {
             }
         }];
-     
+        
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewChatBlock:^{
         // 聊天界面功能
@@ -2357,15 +2371,15 @@
         //[self.vocieListArr removeObject:model];
         //[self.voiceCollectionView reloadData];
     }];
-//    [SVProgressHUD show];
-//    [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]POST:baseUrl parameters:param success:^(NeighborsSimpleCuteResposeModel *response) {
-//            [SVProgressHUD dismiss];
-//        if (response.code ==  0) {
-//
-//        }
-//    }failure:^(NSError *error) {
-//
-//    }];
+    //    [SVProgressHUD show];
+    //    [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]POST:baseUrl parameters:param success:^(NeighborsSimpleCuteResposeModel *response) {
+    //            [SVProgressHUD dismiss];
+    //        if (response.code ==  0) {
+    //
+    //        }
+    //    }failure:^(NSError *error) {
+    //
+    //    }];
 }
 @end
 
@@ -2473,17 +2487,115 @@
         [self.timer2 setFireDate:[NSDate distantFuture]];
         return;
     }
-        if (self.homeAllListArr.count >= 7) {
+    if (self.homeAllListArr.count >= 7) {
+        if (self.cutDown == 1) {
+            self.six_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
+            [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel5.audioUrl.length > 0) {
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 2){
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 3){
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 4){
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 5){
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 6){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 7){
+            self.seven_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
+            [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel6.audioUrl.length > 0) {
+                self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }
+    }else{
+        if(self.homeAllListArr.count == 1){
             if (self.cutDown == 1) {
-                self.six_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
-                [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel5.audioUrl.length > 0) {
-                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
-                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                  }
-            }else if(self.cutDown == 2){
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
+            
+        }else if(self.homeAllListArr.count == 2){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
+        }else if(self.homeAllListArr.count == 3){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
                 self.second_view.hidden = NO;
                 NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
                 [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -2493,33 +2605,17 @@
                     self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
             }else if(self.cutDown == 3){
-                self.five_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel4.audioUrl.length > 0) {
-                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                }else{
-                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                }
-            }else if(self.cutDown == 4){
-                self.four_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel3.audioUrl.length > 0) {
-                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                }else{
-                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                }
-            }else if(self.cutDown == 5){
                 self.third_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel2.audioUrl.length > 0) {
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
                     self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
                     self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.cutDown == 6){
+            }
+        }else if(self.homeAllListArr.count == 4){
+            if (self.cutDown == 1) {
                 self.first_view.hidden = NO;
                 NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
                 [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -2528,219 +2624,137 @@
                 }else{
                     self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.cutDown == 7){
-                self.seven_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
-                [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel6.audioUrl.length > 0) {
-                    self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
-                    self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
             }
-        }else{
-             if(self.homeAllListArr.count == 1){
-                 if (self.cutDown == 1) {
-                     self.first_view.hidden = NO;
-                     NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                     [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                     if (svoicemodel1.audioUrl.length > 0) {
-                         self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                     }else{
-                         self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                     }
-                 }
-                
-            }else if(self.homeAllListArr.count == 2){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+        }else if(self.homeAllListArr.count == 5){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 3){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 4){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 5){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 5){
-                    self.five_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
-                    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel5.audioUrl.length > 0) {
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 6){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 5){
-                    self.five_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
-                    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel5.audioUrl.length > 0) {
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 6){
-                    self.six_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[5];
-                    [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel6.audioUrl.length > 0) {
-                        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown == 5){
+                self.five_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
+                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel5.audioUrl.length > 0) {
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }
+            }
+        }else if(self.homeAllListArr.count == 6){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 5){
+                self.five_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
+                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel5.audioUrl.length > 0) {
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 6){
+                self.six_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[5];
+                [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel6.audioUrl.length > 0) {
+                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
         }
     }
     
@@ -2753,7 +2767,7 @@
 }
 -(void)updateProgress
 {
-
+    
 }
 
 - (UIView *)seven_view
@@ -3266,115 +3280,6 @@
 -(void)actionSetHomeData
 {   NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
     if (self.homeAllListArr.count >= 7) {
-    self.first_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel0.audioUrl.length > 0) {
-        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.second_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel1.audioUrl.length > 0) {
-        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.third_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel2.audioUrl.length > 0) {
-        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.four_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel3.audioUrl.length > 0) {
-        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.five_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]];
-    if (svoicemodel4.audioUrl.length > 0) {
-        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.six_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
-    [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel5.audioUrl.length > 0) {
-        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.seven_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
-    [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel6.audioUrl.length > 0) {
-        self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-}else{
-     if(self.homeAllListArr.count == 1){
-         self.first_view.hidden = NO;
-         NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-         [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-         if (svoicemodel1.audioUrl.length > 0) {
-             self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-         }else{
-             self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-         }
-    }else if(self.homeAllListArr.count == 2){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-    }else if(self.homeAllListArr.count == 3){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-    }else if(self.homeAllListArr.count == 4){
         self.first_view.hidden = NO;
         NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
         [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -3407,86 +3312,9 @@
         }else{
             self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
         }
-    }else if(self.homeAllListArr.count == 5){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.four_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-        [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel3.audioUrl.length > 0) {
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
         self.five_view.hidden = NO;
         NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel4.audioUrl.length > 0) {
-            self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
-    }else if(self.homeAllListArr.count == 6){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.four_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-        [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel3.audioUrl.length > 0) {
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
-        self.five_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]];
         if (svoicemodel4.audioUrl.length > 0) {
             self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
         }else{
@@ -3499,7 +3327,193 @@
             self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
         }else{
             self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-          }
+        }
+        self.seven_view.hidden = NO;
+        NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
+        [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+        if (svoicemodel6.audioUrl.length > 0) {
+            self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+        }else{
+            self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+        }
+    }else{
+        if(self.homeAllListArr.count == 1){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 2){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 3){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 4){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 5){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+        }else if(self.homeAllListArr.count == 6){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.six_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
+            [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel5.audioUrl.length > 0) {
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
         }
     }
 }
@@ -3539,7 +3553,7 @@
     [self.second_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.top.offset(0);
     }];
- 
+    
     [self.contentBgView addSubview:self.first_view];
     [self.first_view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.contentBgView).offset(-115);
@@ -3632,7 +3646,7 @@
         make.left.right.top.bottom.offset(0);
     }];
     
-
+    
     [self.contentBgView addSubview:self.six_view];
     [self.six_view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.contentBgView).offset(95);
@@ -3688,7 +3702,7 @@
         make.width.offset(240);
         make.height.offset(50);
     }];
-        
+    
     
     
     [self.bottomBgView addSubview:self.refreshBtn];
@@ -3742,7 +3756,7 @@
                     self.five_view.hidden = YES;
                 }else if(tag == 5){
                     self.six_view.hidden = YES;
-                    }
+                }
             }];
             [playView setNeighborsSimpleCuteVoicePlayViewReportBlock:^{
                 NeighborsSimpleCuteSettingFeedBackController *reportShowVc = [[NeighborsSimpleCuteSettingFeedBackController alloc]init];
@@ -3754,7 +3768,11 @@
             }];
             [playView setNeighborsSimpleCuteVoicePlayViewCallBlock:^{
                 [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                            if (granted) {
+                    if (granted) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     NeighborsSimpleCuteVideoCallView *callView = [[NeighborsSimpleCuteVideoCallView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
                                     callView.voiceModel = voicemodel;
@@ -3762,12 +3780,14 @@
                                     NSCParameterAssert(window);
                                     [window addSubview:callView];
                                 });
-                
-                            } else {
-                                // [self showPhoto];
-                                // Microphone disabled code
-                            }
-                        }];
+                            }];
+                        });
+                        
+                    } else {
+                        // [self showPhoto];
+                        // Microphone disabled code
+                    }
+                }];
             }];
             
             [playView setNeighborsSimpleCuteVoicePlayViewChatBlock:^{
@@ -3778,16 +3798,16 @@
                 messageChatvc.IconStr = [NSString stringWithFormat:@"%@%@",imageBaseUrl,voicemodel.userInfo.imgUrl];
                 messageChatvc.NameStr = voicemodel.userInfo.nickName;
                 [self.navigationController pushViewController:messageChatvc animated:YES];
-//                NeighborsSimpleCuteSendMessageController *reportShowVc = [[NeighborsSimpleCuteSendMessageController alloc]init];
-//                reportShowVc.hidesBottomBarWhenPushed = YES;
-//                [reportShowVc setNeighborsSimpleCuteReportControllerMessageBlock:^{
-//                    playView.hidden = NO;
-//                }];
-//                [self.navigationController pushViewController:reportShowVc animated:YES];
+                //                NeighborsSimpleCuteSendMessageController *reportShowVc = [[NeighborsSimpleCuteSendMessageController alloc]init];
+                //                reportShowVc.hidesBottomBarWhenPushed = YES;
+                //                [reportShowVc setNeighborsSimpleCuteReportControllerMessageBlock:^{
+                //                    playView.hidden = NO;
+                //                }];
+                //                [self.navigationController pushViewController:reportShowVc animated:YES];
             }];
         }
     }failure:^(NSError *error) {
-            
+        
     }];
 }
 
@@ -3903,15 +3923,15 @@
 
 /*
  @property (nonatomic,strong)UIView *bgView;
-
+ 
  @property (nonatomic,strong)UIButton *callBtn;
-
+ 
  @property (nonatomic,strong)UIImageView *bgImg;
-
+ 
  @property (nonatomic,strong)UIImageView *apperaView;
-
+ 
  @property (nonatomic,strong)UIImageView *showImg;
-
+ 
  */
 @end
 
@@ -4026,7 +4046,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"FeedBack";
+    self.navigationItem.title = @"Feedback";
 }
 
 @end
@@ -4063,11 +4083,11 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Send successful"];
-                [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send successful"];
+            [self.navigationController popViewControllerAnimated:YES];
         });
     });
 }
@@ -4289,11 +4309,11 @@
                     NSCParameterAssert(window);
                     [window addSubview:callView];
                 });
-
+                
             } else {
             }
         }];
-       
+        
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewReportBlock:^{
         NeighborsSimpleCuteSettingFeedBackController *reportShowVc = [[NeighborsSimpleCuteSettingFeedBackController alloc]init];
@@ -4310,12 +4330,12 @@
         messageChatvc.IconStr = [NSString stringWithFormat:@"%@%@",imageBaseUrl,model.userInfo.imgUrl];
         messageChatvc.NameStr = model.userInfo.nickName;
         [self.navigationController pushViewController:messageChatvc animated:YES];
-//        NeighborsSimpleCuteSendMessageController *sendMessagevc = [[NeighborsSimpleCuteSendMessageController alloc]init];
-//        sendMessagevc.hidesBottomBarWhenPushed = YES;
-//        [sendMessagevc setNeighborsSimpleCuteReportControllerMessageBlock:^{
-//            playView.hidden = NO;
-//        }];
-//        [self.navigationController pushViewController:sendMessagevc animated:YES];
+        //        NeighborsSimpleCuteSendMessageController *sendMessagevc = [[NeighborsSimpleCuteSendMessageController alloc]init];
+        //        sendMessagevc.hidesBottomBarWhenPushed = YES;
+        //        [sendMessagevc setNeighborsSimpleCuteReportControllerMessageBlock:^{
+        //            playView.hidden = NO;
+        //        }];
+        //        [self.navigationController pushViewController:sendMessagevc animated:YES];
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewDelBlock:^{
         [self.exploreListArr removeObject:model];
@@ -4433,16 +4453,16 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Send Successfully"];
-                [UIView animateWithDuration:0.3 animations:^{
-                    self.alpha = 0;
-                } completion:^(BOOL finished) {
-                    self.hidden = YES;
-                    [self removeFromSuperview];
-                }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send Successfully"];
+            [UIView animateWithDuration:0.3 animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.hidden = YES;
+                [self removeFromSuperview];
+            }];
         });
     });
 }
@@ -4798,34 +4818,34 @@
 -(void)actionSecondBtn:(UIButton *)btn
 {
     NSLog(@"actionSecondBtn");
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [SVProgressHUD showInfoWithStatus:@"Block successfully"];
-//                self.alterView.hidden = YES;
-//                self.subBgView.hidden = YES;
-//        });
-//    });
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [SVProgressHUD showInfoWithStatus:@"Block successfully"];
+    //                self.alterView.hidden = YES;
+    //                self.subBgView.hidden = YES;
+    //        });
+    //    });
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Blocked successfully"];
-                self.alterView.hidden = YES;
-                self.subBgView.hidden = YES;
-                if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
-                    self.NeighborsSimpleCuteVoicePlayViewDelBlock();
-                }
-                if ([LZPlayerManager lzPlayerManager].isPlay) {
-                    [[LZPlayerManager lzPlayerManager]playAndPause];
-                    self.playImg.hidden = YES;
-                    [self.playImg stopAnimating];
-                    [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
-                }
-                [self removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Blocked successfully"];
+            self.alterView.hidden = YES;
+            self.subBgView.hidden = YES;
+            if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
+                self.NeighborsSimpleCuteVoicePlayViewDelBlock();
+            }
+            if ([LZPlayerManager lzPlayerManager].isPlay) {
+                [[LZPlayerManager lzPlayerManager]playAndPause];
+                self.playImg.hidden = YES;
+                [self.playImg stopAnimating];
+                [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
+            }
+            [self removeFromSuperview];
         });
     });
 }
@@ -4847,22 +4867,22 @@
     NSLog(@"actionThirdBtn");
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Delete successfully"];
-                self.alterView.hidden = YES;
-                self.subBgView.hidden = YES;
-                if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
-                    self.NeighborsSimpleCuteVoicePlayViewDelBlock();
-                }
-                if ([LZPlayerManager lzPlayerManager].isPlay) {
-                    [[LZPlayerManager lzPlayerManager]playAndPause];
-                    self.playImg.hidden = YES;
-                    [self.playImg stopAnimating];
-                    [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
-                }
-                [self removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Delete successfully"];
+            self.alterView.hidden = YES;
+            self.subBgView.hidden = YES;
+            if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
+                self.NeighborsSimpleCuteVoicePlayViewDelBlock();
+            }
+            if ([LZPlayerManager lzPlayerManager].isPlay) {
+                [[LZPlayerManager lzPlayerManager]playAndPause];
+                self.playImg.hidden = YES;
+                [self.playImg stopAnimating];
+                [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
+            }
+            [self removeFromSuperview];
         });
     });
 }
@@ -4930,31 +4950,46 @@
     }
     return _playBtn;
 }
--(void)actionPlayBtn:(UIButton *)sender
-{
-    NSLog(@"actionPlayBtnactionPlayBtn");
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        self.playImg.hidden = NO;
-        [[LZPlayerManager lzPlayerManager]replaceItemWithUrlString:self.urlStr];
-        [self.playBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        NSMutableArray *images = [NSMutableArray array];
-        for (int i = 1; i <= 60; i++) {
-            NSString *imageName = [NSString stringWithFormat:TUIKitResource(@"zhendonghua6yuemoapp (%d)"),i];
-            NSLog(@"imageName:%@",imageName);
-            [images addObject:[UIImage imageNamed:imageName]];
+-(void)actionPlayBtn:(UIButton *)sender{
+    
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        if (granted) {
+        // Microphone enabled code‘
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSLog(@"actionPlayBtnactionPlayBtn");
+            sender.selected = !sender.selected;
+            if (sender.selected) {
+                self.playImg.hidden = NO;
+                [[LZPlayerManager lzPlayerManager]replaceItemWithUrlString:self.urlStr];
+                [self.playBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+                NSMutableArray *images = [NSMutableArray array];
+                for (int i = 1; i <= 60; i++) {
+                    NSString *imageName = [NSString stringWithFormat:TUIKitResource(@"zhendonghua6yuemoapp (%d)"),i];
+                    NSLog(@"imageName:%@",imageName);
+                    [images addObject:[UIImage imageNamed:imageName]];
+                }
+                [self.playImg setAnimationImages:images];
+                [self.playImg setAnimationRepeatCount:100000000];
+                [self.playImg startAnimating];
+                self.timer.fireDate=[NSDate distantPast];
+                
+            }else{
+                self.playImg.hidden = YES;
+                [[LZPlayerManager lzPlayerManager]playAndPause];
+                [self.playImg stopAnimating];
+                [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
+                self.timer.fireDate=[NSDate distantFuture];
+            }
+            
+        });
+        }else{
+            
+            
         }
-        [self.playImg setAnimationImages:images];
-        [self.playImg setAnimationRepeatCount:100000000];
-        [self.playImg startAnimating];
-        self.timer.fireDate=[NSDate distantPast];
-    }else{
-        self.playImg.hidden = YES;
-        [[LZPlayerManager lzPlayerManager]playAndPause];
-        [self.playImg stopAnimating];
-        [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
-        self.timer.fireDate=[NSDate distantFuture];
-    }
+        
+    }];
+    
 }
 
 - (UIImageView *)iconImg
@@ -5016,7 +5051,7 @@
         _closeBtn = [[UIButton alloc]init];
         [_closeBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play_close")] forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(actionCloseBtn:) forControlEvents:UIControlEventTouchUpInside];
-
+        
     }
     return _closeBtn;
 }
@@ -5062,36 +5097,36 @@
     CGFloat height = (IPHONE_HEIGHT- 450)/2 + 50;
     [self addSubview:self.subBgView];
     [self.subBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.offset(height);
-            make.right.offset(-60);
-            make.width.offset(120);
-            make.height.offset(220);
+        make.top.offset(height);
+        make.right.offset(-60);
+        make.width.offset(120);
+        make.height.offset(220);
     }];
     CGFloat height2 = 220 / 4;
     [self.subBgView addSubview:self.firstBtn];
     [self.firstBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.offset(0);
-            make.height.offset(height2);
+        make.left.top.right.offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.secondBtn];
     [self.secondBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.offset(0);
-            make.top.mas_equalTo(self.firstBtn.mas_bottom).offset(0);
-            make.height.offset(height2);
+        make.left.right.offset(0);
+        make.top.mas_equalTo(self.firstBtn.mas_bottom).offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.thirdBtn];
     [self.thirdBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.offset(0);
-            make.top.mas_equalTo(self.secondBtn.mas_bottom).offset(0);
-            make.height.offset(height2);
+        make.left.right.offset(0);
+        make.top.mas_equalTo(self.secondBtn.mas_bottom).offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.fourBtn];
     [self.fourBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.right.offset(0);
-            make.height.offset(height2);
+        make.left.bottom.right.offset(0);
+        make.height.offset(height2);
     }];
     
-
+    
 }
 
 - (UIButton *)callBtn
@@ -5315,7 +5350,7 @@
         make.right.offset(-30);
         make.height.offset(360);
     }];
-
+    
     [self.bg_view addSubview:self.topBtn];
     [self.topBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -5599,21 +5634,21 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 -(void)insertNeighborsSimpleCuteProjectPlanModel:(NeighborsSimpleCuteHomeVoiceModel *)voicemodel
 {
     if ([self isEixistWithVoiceModel:voicemodel] == NO) {
-       // [self.NSCDB executeUpdate:@"INSERT INTO n_voice (n_name_str,n_avtor_str,n_url_str) VALUES (?,?,?);",voicemodel.nameStr,voicemodel.avtorStr,voicemodel.urlStr];
+        // [self.NSCDB executeUpdate:@"INSERT INTO n_voice (n_name_str,n_avtor_str,n_url_str) VALUES (?,?,?);",voicemodel.nameStr,voicemodel.avtorStr,voicemodel.urlStr];
     }
 }
 - (NSMutableArray *)queryAllNeighborsSimpleCuteProjectVoice
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM n_voice"];
-          while ([resultset next]) {
-              NeighborsSimpleCuteHomeVoiceModel *model = [[NeighborsSimpleCuteHomeVoiceModel alloc]init];
-//              model.index = [resultset intForColumn:@"id"];
-//              model.nameStr = [resultset stringForColumn:@"n_name_str"];
-//              model.avtorStr = [resultset stringForColumn:@"n_avtor_str"];
-//              model.urlStr      = [resultset stringForColumn:@"n_url_str"];
-              [arry addObject:model];
-        }
+    while ([resultset next]) {
+        NeighborsSimpleCuteHomeVoiceModel *model = [[NeighborsSimpleCuteHomeVoiceModel alloc]init];
+        //              model.index = [resultset intForColumn:@"id"];
+        //              model.nameStr = [resultset stringForColumn:@"n_name_str"];
+        //              model.avtorStr = [resultset stringForColumn:@"n_avtor_str"];
+        //              model.urlStr      = [resultset stringForColumn:@"n_url_str"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -5623,10 +5658,10 @@ static NeighborsSimpleCuteDBTool *instance = nil;
     NSMutableArray *arry = [NSMutableArray array];
     arry = [self queryAllNeighborsSimpleCuteProjectVoice];
     for (NeighborsSimpleCuteHomeVoiceModel *voicemodel in arry) {
-//        if ([voicemodel.nameStr isEqualToString:model.nameStr]) {
-//            isHave = YES;
-//            break;
-//        }
+        //        if ([voicemodel.nameStr isEqualToString:model.nameStr]) {
+        //            isHave = YES;
+        //            break;
+        //        }
     }
     return isHave;
 }
@@ -5635,7 +5670,7 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 -(void)deleteNeighborsSimpleCuteProjectVoiceModel:(NeighborsSimpleCuteHomeVoiceModel *)voicemodel
 {
     
-  //  [self.NSCDB executeUpdate:@"DELETE FROM n_voice WHERE id = ?;",@(voicemodel.index)];
+    //  [self.NSCDB executeUpdate:@"DELETE FROM n_voice WHERE id = ?;",@(voicemodel.index)];
 }
 
 // 聊天界面需要的功能
@@ -5651,17 +5686,17 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM s_message"];
-          while ([resultset next]) {
-              SocializeIntercourseMessageModel *model = [[SocializeIntercourseMessageModel alloc]init];
-              model.index  = [resultset intForColumn:@"id"];
-              model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
-              model.sendIconStr  = [resultset stringForColumn:@"sendIconStr"];
-              model.sendTimeStr  = [resultset stringForColumn:@"sendTimeStr"];
-              model.sendContentStr  = [resultset stringForColumn:@"sendContentStr"];
-              model.sendType  = [resultset stringForColumn:@"sendType"];
-              model.sendPicture = [resultset dataForColumn:@"sendPicture"];
-              [arry addObject:model];
-          }
+    while ([resultset next]) {
+        SocializeIntercourseMessageModel *model = [[SocializeIntercourseMessageModel alloc]init];
+        model.index  = [resultset intForColumn:@"id"];
+        model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
+        model.sendIconStr  = [resultset stringForColumn:@"sendIconStr"];
+        model.sendTimeStr  = [resultset stringForColumn:@"sendTimeStr"];
+        model.sendContentStr  = [resultset stringForColumn:@"sendContentStr"];
+        model.sendType  = [resultset stringForColumn:@"sendType"];
+        model.sendPicture = [resultset dataForColumn:@"sendPicture"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -5696,15 +5731,15 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM s_messageStore"];
-          while ([resultset next]) {
-              SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-              model.index  = [resultset intForColumn:@"id"];
-              model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
-              model.storeTimeStr  = [resultset stringForColumn:@"storeTimeStr"];
-              model.storeIconStr  = [resultset stringForColumn:@"storeIconStr"];
-              model.storeLastStr  = [resultset stringForColumn:@"storeLastStr"];
-              [arry addObject:model];
-          }
+    while ([resultset next]) {
+        SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+        model.index  = [resultset intForColumn:@"id"];
+        model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
+        model.storeTimeStr  = [resultset stringForColumn:@"storeTimeStr"];
+        model.storeIconStr  = [resultset stringForColumn:@"storeIconStr"];
+        model.storeLastStr  = [resultset stringForColumn:@"storeLastStr"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -5754,7 +5789,7 @@ static LZPlayerManager *_lzPlayerManager = nil;
 {
     [_player pause];
     _isPlay = NO;
-  
+    
 }
 //播放和暂停
 - (void)playAndPause
@@ -5842,51 +5877,51 @@ static NSString *UserModelKey = @"UserModelkey";
 
 + (NSString*)getCurentLocalIP{
     NSString *address = @"error";
-
-      struct ifaddrs *interfaces = NULL;
-
-      struct ifaddrs *temp_addr = NULL;
-
-      int success = 0;
-
-      // retrieve the current interfaces - returns 0 on success
-
-      success = getifaddrs(&interfaces);
-
-      if (success == 0) {
-
-          // Loop through linked list of interfaces
-
-          temp_addr = interfaces;
-
-          while(temp_addr != NULL) {
-
-              if(temp_addr->ifa_addr->sa_family == AF_INET) {
-
-                  // Check if interface is en0 which is the wifi connection on the iPhone
-
-                  if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-
-                      // Get NSString from C String
-
-                      address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-
-                  }
-
-              }
-
-              temp_addr = temp_addr->ifa_next;
-
-          }
-
-      }
-
-      // Free memory
-
-      freeifaddrs(interfaces);
-
-      return address;
-
+    
+    struct ifaddrs *interfaces = NULL;
+    
+    struct ifaddrs *temp_addr = NULL;
+    
+    int success = 0;
+    
+    // retrieve the current interfaces - returns 0 on success
+    
+    success = getifaddrs(&interfaces);
+    
+    if (success == 0) {
+        
+        // Loop through linked list of interfaces
+        
+        temp_addr = interfaces;
+        
+        while(temp_addr != NULL) {
+            
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    
+                    // Get NSString from C String
+                    
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                    
+                }
+                
+            }
+            
+            temp_addr = temp_addr->ifa_next;
+            
+        }
+        
+    }
+    
+    // Free memory
+    
+    freeifaddrs(interfaces);
+    
+    return address;
+    
 }
 
 //    int sockfd = socket(AF_INET,SOCK_DGRAM, 0);
@@ -5952,56 +5987,56 @@ static NSString *UserModelKey = @"UserModelkey";
 
 + (BOOL)isVPNOn
 {
-   BOOL flag = NO;
-   NSString *version = [UIDevice currentDevice].systemVersion;
-   // need two ways to judge this.
-   if (version.doubleValue >= 9.0)
-   {
-       NSDictionary *dict = CFBridgingRelease(CFNetworkCopySystemProxySettings());
-       NSArray *keys = [dict[@"__SCOPED__"] allKeys];
-       for (NSString *key in keys) {
-           if ([key rangeOfString:@"tap"].location != NSNotFound ||
-               [key rangeOfString:@"tun"].location != NSNotFound ||
-               [key rangeOfString:@"ipsec"].location != NSNotFound ||
-               [key rangeOfString:@"ppp"].location != NSNotFound){
-               flag = YES;
-               break;
-           }
-       }
-   }
-   else
-   {
-       struct ifaddrs *interfaces = NULL;
-       struct ifaddrs *temp_addr = NULL;
-       int success = 0;
-       
-       // retrieve the current interfaces - returns 0 on success
-       success = getifaddrs(&interfaces);
-       if (success == 0)
-       {
-           // Loop through linked list of interfaces
-           temp_addr = interfaces;
-           while (temp_addr != NULL)
-           {
-               NSString *string = [NSString stringWithFormat:@"%s" , temp_addr->ifa_name];
-               if ([string rangeOfString:@"tap"].location != NSNotFound ||
-                   [string rangeOfString:@"tun"].location != NSNotFound ||
-                   [string rangeOfString:@"ipsec"].location != NSNotFound ||
-                   [string rangeOfString:@"ppp"].location != NSNotFound)
-               {
-                   flag = YES;
-                   break;
-               }
-               temp_addr = temp_addr->ifa_next;
-           }
-       }
-       
-       // Free memory
-       freeifaddrs(interfaces);
-   }
-
-
-   return flag;
+    BOOL flag = NO;
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    // need two ways to judge this.
+    if (version.doubleValue >= 9.0)
+    {
+        NSDictionary *dict = CFBridgingRelease(CFNetworkCopySystemProxySettings());
+        NSArray *keys = [dict[@"__SCOPED__"] allKeys];
+        for (NSString *key in keys) {
+            if ([key rangeOfString:@"tap"].location != NSNotFound ||
+                [key rangeOfString:@"tun"].location != NSNotFound ||
+                [key rangeOfString:@"ipsec"].location != NSNotFound ||
+                [key rangeOfString:@"ppp"].location != NSNotFound){
+                flag = YES;
+                break;
+            }
+        }
+    }
+    else
+    {
+        struct ifaddrs *interfaces = NULL;
+        struct ifaddrs *temp_addr = NULL;
+        int success = 0;
+        
+        // retrieve the current interfaces - returns 0 on success
+        success = getifaddrs(&interfaces);
+        if (success == 0)
+        {
+            // Loop through linked list of interfaces
+            temp_addr = interfaces;
+            while (temp_addr != NULL)
+            {
+                NSString *string = [NSString stringWithFormat:@"%s" , temp_addr->ifa_name];
+                if ([string rangeOfString:@"tap"].location != NSNotFound ||
+                    [string rangeOfString:@"tun"].location != NSNotFound ||
+                    [string rangeOfString:@"ipsec"].location != NSNotFound ||
+                    [string rangeOfString:@"ppp"].location != NSNotFound)
+                {
+                    flag = YES;
+                    break;
+                }
+                temp_addr = temp_addr->ifa_next;
+            }
+        }
+        
+        // Free memory
+        freeifaddrs(interfaces);
+    }
+    
+    
+    return flag;
 }
 
 
@@ -6031,9 +6066,9 @@ static AFHTTPSessionManager *_session;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         /*
-        NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
-        conf.timeoutIntervalForRequest = 60;
-        _session = [[AFHTTPSessionManager alloc]initWithBaseURL:nil sessionConfiguration:conf];
+         NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
+         conf.timeoutIntervalForRequest = 60;
+         _session = [[AFHTTPSessionManager alloc]initWithBaseURL:nil sessionConfiguration:conf];
          */
         _session = [AFHTTPSessionManager manager];
         [_session.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -6050,18 +6085,18 @@ static AFHTTPSessionManager *_session;
 -(void)GET:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure
 {
     [_session GET:URLString parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-       
+        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject.data:%@",responseObject);
-           // NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
-            if (success) {
-                success(responseObject);
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            if (failure) {
-                failure(error);
-            }
-        }];
+        NSLog(@"responseObject.data:%@",responseObject);
+        // NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 -(void)GET2:(NSString *)URLString parameters:(id)parameters success:(void (^)(NeighborsSimpleCuteResposeModel *response))success failure:(void (^)(NSError * error))failure
@@ -6069,7 +6104,7 @@ static AFHTTPSessionManager *_session;
     [_session GET:URLString parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject.data:%@",responseObject);
-       NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
+        NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
         if (success) {
             success(response);
         }
@@ -6252,17 +6287,17 @@ static AFHTTPSessionManager *_session;
         NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
         NSLog(@"imageUrlimageUrl:%@",imageUrl);
         [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-//                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-//        // 保存文件的名称
-//        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-//        NSLog(@"img:%@",img);
-//        if (img) {
-//                headerCell.iconImg.image = img;
-//            }else{
-//                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-//        }
+        //        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        //        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+        //                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        //        // 保存文件的名称
+        //        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        //        NSLog(@"img:%@",img);
+        //        if (img) {
+        //                headerCell.iconImg.image = img;
+        //            }else{
+        //                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        //        }
         NSString *userName = [NeighborsSimpleCuteUserModel getUserInfo].userInfo.nickName;
         [headerCell.nameBtn setTitle:userName forState:UIControlStateNormal];
         if ([self.memberLevel intValue] == 1) {
@@ -6293,7 +6328,7 @@ static AFHTTPSessionManager *_session;
                 upgrdevc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:upgrdevc animated:YES];
             }
-        
+            
         }];
         return rechagerCell;
     }else{
@@ -6332,13 +6367,13 @@ static AFHTTPSessionManager *_session;
                 NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-                     NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-                     delaccountvc.hidesBottomBarWhenPushed = YES;
-                     [self.navigationController pushViewController:delaccountvc animated:YES];
+                    NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+                    delaccountvc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:delaccountvc animated:YES];
                 }];
                 NSCParameterAssert(window);
                 [window addSubview:delView];
-
+                
             }
                 break;
             case 3:
@@ -6461,9 +6496,9 @@ static AFHTTPSessionManager *_session;
         NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-             NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-             delaccountvc.hidesBottomBarWhenPushed = YES;
-             [self.navigationController pushViewController:delaccountvc animated:YES];
+            NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+            delaccountvc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:delaccountvc animated:YES];
         }];
         NSCParameterAssert(window);
         [window addSubview:delView];
@@ -6478,17 +6513,17 @@ static AFHTTPSessionManager *_session;
         [outView setNeighborsSimpleCuteSignOutViewShowBlock:^{
             [SVProgressHUD show];
             dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                        [SVProgressHUD dismiss];
-                        [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-                        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-                        [[NSUserDefaults standardUserDefaults]synchronize];
-                        NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-                        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                    });
-           });
+                    [SVProgressHUD dismiss];
+                    [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                });
+            });
         }];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         NSCParameterAssert(window);
@@ -6606,15 +6641,15 @@ static AFHTTPSessionManager *_session;
         NeighborsSimpleCuteSettingContentViewCell *headerCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingContentViewCell" forIndexPath:indexPath];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+                              [NSString stringWithFormat:(@"n_add_sened_img.png")]];
         // 保存文件的名称
         UIImage *img = [UIImage imageWithContentsOfFile:filePath];
         NSLog(@"img:%@",img);
         if (img) {
-                headerCell.iconImg.image = img;
-            }else{
-                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-            }
+            headerCell.iconImg.image = img;
+        }else{
+            headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        }
         NSString *userName = [NeighborsSimpleCuteUserModel getUserInfo].userInfo.nickName;
         //[[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailUser];
         headerCell.titleLab.text = userName;
@@ -6664,7 +6699,7 @@ static AFHTTPSessionManager *_session;
                 NeighborsSimpleCuteSettingAboutusController *aboutusvc = [[NeighborsSimpleCuteSettingAboutusController alloc]init];
                 aboutusvc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:aboutusvc animated:YES];
-
+                
             }
                 break;
             case 3:
@@ -6678,17 +6713,17 @@ static AFHTTPSessionManager *_session;
             case 4:
             {
                 //Delete account
-            
+                
                 NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-                     NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-                     delaccountvc.hidesBottomBarWhenPushed = YES;
-                     [self.navigationController pushViewController:delaccountvc animated:YES];
+                    NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+                    delaccountvc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:delaccountvc animated:YES];
                 }];
                 NSCParameterAssert(window);
                 [window addSubview:delView];
-        
+                
             }
                 break;
             case 5:
@@ -6698,39 +6733,39 @@ static AFHTTPSessionManager *_session;
                 [outView setNeighborsSimpleCuteSignOutViewShowBlock:^{
                     [SVProgressHUD show];
                     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                                [SVProgressHUD dismiss];
-                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-                                [[NSUserDefaults standardUserDefaults]synchronize];
-                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                                        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                            });
-                   });
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                            [[NSUserDefaults standardUserDefaults]synchronize];
+                            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                        });
+                    });
                 }];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 NSCParameterAssert(window);
                 [window addSubview:outView];
                 
-//                NeighborsSimpleCuteSignOutView *signoutView = [NeighborsSimpleCuteSignOutView alertViewShow];
-//                [signoutView setNeighborsSimpleCuteSignOutViewShowBlock:^{
-//                    [SVProgressHUD show];
-//                    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [SVProgressHUD dismiss];
-//                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-//                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-//                                [[NSUserDefaults standardUserDefaults]synchronize];
-//                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-//                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//                        });
-//                    });
-//                }];
-//                [signoutView show];
+                //                NeighborsSimpleCuteSignOutView *signoutView = [NeighborsSimpleCuteSignOutView alertViewShow];
+                //                [signoutView setNeighborsSimpleCuteSignOutViewShowBlock:^{
+                //                    [SVProgressHUD show];
+                //                    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                //                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                //                            dispatch_async(dispatch_get_main_queue(), ^{
+                //                                [SVProgressHUD dismiss];
+                //                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                //                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                //                                [[NSUserDefaults standardUserDefaults]synchronize];
+                //                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                //                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                //                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                //                        });
+                //                    });
+                //                }];
+                //                [signoutView show];
             }
                 break;
             default:
@@ -7066,40 +7101,40 @@ static AFHTTPSessionManager *_session;
         model.sendPicture    = UIImageJPEGRepresentation(self.pictureImage.image, 1);
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
-                    BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
-                    if (isExist == NO) {
-                        SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-                        model.storeNameStr = self.NameStr;
-                        model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                        model.storeLastStr  = self.sendInputView.text;
-                        model.storeIconStr = self.IconStr;
-                        [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
-                    }else{
-                        NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
-                        SocializeIntercourseMessageOtherModel *storeModel = array[0];
-                        storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                        storeModel.storeLastStr =  @"[Picture]";
-                        [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
+                BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
+                if (isExist == NO) {
+                    SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+                    model.storeNameStr = self.NameStr;
+                    model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                    model.storeLastStr  = self.sendInputView.text;
+                    model.storeIconStr = self.IconStr;
+                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
+                }else{
+                    NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
+                    SocializeIntercourseMessageOtherModel *storeModel = array[0];
+                    storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                    storeModel.storeLastStr =  @"[Picture]";
+                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+                }
+                self.sendInputView.text = @"";
+                [self.sendInputView resignFirstResponder];
+                [self.detailAllListArr removeAllObjects];
+                [self.detailListArr removeAllObjects];
+                self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
+                for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
+                    if ([model.storeNameStr isEqualToString:self.NameStr]) {
+                        [self.detailListArr addObject:model];
                     }
-                    self.sendInputView.text = @"";
-                    [self.sendInputView resignFirstResponder];
-                    [self.detailAllListArr removeAllObjects];
-                    [self.detailListArr removeAllObjects];
-                    self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
-                    for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
-                        if ([model.storeNameStr isEqualToString:self.NameStr]) {
-                            [self.detailListArr addObject:model];
-                        }
-                    }
-                    [self.detailCollectionView reloadData];
-                    if ([self.detailListArr count]) {   //messageData是数据源
-                        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
-                        [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
-                        }
+                }
+                [self.detailCollectionView reloadData];
+                if ([self.detailListArr count]) {   //messageData是数据源
+                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
+                    [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+                }
             });
         });
     }];
@@ -7141,40 +7176,40 @@ static AFHTTPSessionManager *_session;
     model.sendPicture    = @"";//UIImageJPEGRepresentation(self.pictureImage.image, 1);
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
-                BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
-                if (isExist == NO) {
-                    SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-                    model.storeNameStr = self.NameStr;
-                    model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                    model.storeLastStr  = self.sendInputView.text;
-                    model.storeIconStr = self.IconStr;
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
-                }else{
-                    NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
-                    SocializeIntercourseMessageOtherModel *storeModel = array[0];
-                    storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                    storeModel.storeLastStr =  self.sendInputView.text;
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
+            BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
+            if (isExist == NO) {
+                SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+                model.storeNameStr = self.NameStr;
+                model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                model.storeLastStr  = self.sendInputView.text;
+                model.storeIconStr = self.IconStr;
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
+            }else{
+                NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
+                SocializeIntercourseMessageOtherModel *storeModel = array[0];
+                storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                storeModel.storeLastStr =  self.sendInputView.text;
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+            }
+            self.sendInputView.text = @"";
+            [self.sendInputView resignFirstResponder];
+            [self.detailAllListArr removeAllObjects];
+            [self.detailListArr removeAllObjects];
+            self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
+            for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
+                if ([model.storeNameStr isEqualToString:self.NameStr]) {
+                    [self.detailListArr addObject:model];
                 }
-                self.sendInputView.text = @"";
-                [self.sendInputView resignFirstResponder];
-                [self.detailAllListArr removeAllObjects];
-                [self.detailListArr removeAllObjects];
-                self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
-                for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
-                    if ([model.storeNameStr isEqualToString:self.NameStr]) {
-                        [self.detailListArr addObject:model];
-                    }
-                }
-                [self.detailCollectionView reloadData];
-                if ([self.detailListArr count]) {   //messageData是数据源
-                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
-                    [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
-                    }
+            }
+            [self.detailCollectionView reloadData];
+            if ([self.detailListArr count]) {   //messageData是数据源
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
+                [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+            }
         });
     });
 }
@@ -7275,13 +7310,13 @@ static AFHTTPSessionManager *_session;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
-  float textWidth =  [XSDKResourceUtil measureSinglelineStringWidth:model.sendContentStr andFont:[UIFont systemFontOfSize:15]];
+    float textWidth =  [XSDKResourceUtil measureSinglelineStringWidth:model.sendContentStr andFont:[UIFont systemFontOfSize:15]];
     if (textWidth >= 240) {
         textWidth = 240;
     }else{
         textWidth += 10;
     }
-   float hight = [XSDKResourceUtil measureMutilineStringHeight:model.sendContentStr andFont:[UIFont systemFontOfSize:15] andWidthSetup:textWidth];
+    float hight = [XSDKResourceUtil measureMutilineStringHeight:model.sendContentStr andFont:[UIFont systemFontOfSize:15] andWidthSetup:textWidth];
     if ([model.sendType isEqualToString:@"0"]) {
         //带文字
         return CGSizeMake(IPHONE_WIDTH, hight + 55);
@@ -7292,41 +7327,41 @@ static AFHTTPSessionManager *_session;
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-        SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
-        if ([model.sendType isEqualToString:@"0"]) {
-            //文字功能
-            NeighborsSimpleCuteMessageContentCell *messageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessageContentCell" forIndexPath:indexPath];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-            NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                          [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-            // 保存文件的名称
-            UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-            NSLog(@"img:%@",img);
-            if (img) {
-                    messageCell.iconImage.image = img;
-                }else{
-                    messageCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-            }
-            messageCell.model = model;
-            return messageCell;
+    SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
+    if ([model.sendType isEqualToString:@"0"]) {
+        //文字功能
+        NeighborsSimpleCuteMessageContentCell *messageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessageContentCell" forIndexPath:indexPath];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                              [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        // 保存文件的名称
+        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"img:%@",img);
+        if (img) {
+            messageCell.iconImage.image = img;
         }else{
-            //图片功能
-            NeighborsSimpleCuteMessagePictureCell *messagePictureCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessagePictureCell" forIndexPath:indexPath];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-            NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                          [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-            // 保存文件的名称
-            UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-            NSLog(@"img:%@",img);
-            if (img) {
-                    messagePictureCell.iconImage.image = img;
-                }else{
-                    messagePictureCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-            }
-            messagePictureCell.timeLab.text = [NSString stringWithFormat:@"%@",model.sendTimeStr];
-            messagePictureCell.pictureImage.image = [UIImage imageWithData:model.sendPicture];
-            return messagePictureCell;
+            messageCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
         }
+        messageCell.model = model;
+        return messageCell;
+    }else{
+        //图片功能
+        NeighborsSimpleCuteMessagePictureCell *messagePictureCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessagePictureCell" forIndexPath:indexPath];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                              [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        // 保存文件的名称
+        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"img:%@",img);
+        if (img) {
+            messagePictureCell.iconImage.image = img;
+        }else{
+            messagePictureCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        }
+        messagePictureCell.timeLab.text = [NSString stringWithFormat:@"%@",model.sendTimeStr];
+        messagePictureCell.pictureImage.image = [UIImage imageWithData:model.sendPicture];
+        return messagePictureCell;
+    }
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -8698,26 +8733,26 @@ static AFHTTPSessionManager *_session;
         [SVProgressHUD showInfoWithStatus:@"Does not match the original password"];
         return;
     }
-//    NSLog(@"actonForgetContinuteBtn btn");
-//    [self.view endEditing:YES];
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [SVProgressHUD showInfoWithStatus:@"Delete account successful"];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginStatus];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailName];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailPwd];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailUser];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailGender];
-//                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailAge];
-//                [[NSUserDefaults standardUserDefaults]synchronize];
-//                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-//                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-//                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//        });
-//    });
+    //    NSLog(@"actonForgetContinuteBtn btn");
+    //    [self.view endEditing:YES];
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [SVProgressHUD showInfoWithStatus:@"Delete account successful"];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginStatus];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailName];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailPwd];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailUser];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailGender];
+    //                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_EmailAge];
+    //                [[NSUserDefaults standardUserDefaults]synchronize];
+    //                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+    //                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+    //                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+    //        });
+    //    });
 }
 - (void)viewDidLoad
 {
@@ -9128,13 +9163,13 @@ static AFHTTPSessionManager *_session;
         make.left.mas_equalTo(self.ageLab.mas_right).offset(10);
         make.right.mas_equalTo(self.ageJt.mas_left).offset(-10);
     }];
-//    [self.ageView addSubview:self.ageLineView];
-//    [self.ageLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.offset(0);
-//        make.left.offset(10);
-//        make.right.offset(-10);
-//        make.height.offset(1);
-//    }];
+    //    [self.ageView addSubview:self.ageLineView];
+    //    [self.ageLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.bottom.offset(0);
+    //        make.left.offset(10);
+    //        make.right.offset(-10);
+    //        make.height.offset(1);
+    //    }];
 }
 @end
 
@@ -9347,26 +9382,26 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"actionUploadBtnactionUploadBtn");
     if (self.cutDown <= 0) {
-         [SVProgressHUD showInfoWithStatus:@"Please record audio first"];
-         return;
-     }
-     if (!self.isRecorder) {
-         [SVProgressHUD showInfoWithStatus:@"Save the recording before you can send it"];
-     }
-     [SVProgressHUD show];
-     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Send successfully"];
-                 self.cutDown = 0;
-                 self.timeLab.hidden = YES;
-                 self.closeBtn.hidden = YES;
-                 self.timer.fireDate=[NSDate distantFuture];
-                 [self.voiceBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_send_voice")] forState:UIControlStateNormal];
-                 [self.audioRecorder pause];
-         });
-     });
+        [SVProgressHUD showInfoWithStatus:@"Please record audio first"];
+        return;
+    }
+    if (!self.isRecorder) {
+        [SVProgressHUD showInfoWithStatus:@"Save the recording before you can send it"];
+    }
+    [SVProgressHUD show];
+    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send successfully"];
+            self.cutDown = 0;
+            self.timeLab.hidden = YES;
+            self.closeBtn.hidden = YES;
+            self.timer.fireDate=[NSDate distantFuture];
+            [self.voiceBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_send_voice")] forState:UIControlStateNormal];
+            [self.audioRecorder pause];
+        });
+    });
     
     
 }
@@ -9453,17 +9488,17 @@ static AFHTTPSessionManager *_session;
 
 - (UITableView *)profileTableView
 {   if (!_profileTableView) {
-        _profileTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _profileTableView.backgroundColor = [UIColor clearColor];
-        _profileTableView.showsVerticalScrollIndicator = NO;
-        _profileTableView.showsHorizontalScrollIndicator = NO;
-        _profileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _profileTableView.delegate = self;
-        _profileTableView.dataSource = self;
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileHeaderViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell"];
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileContentViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileContentViewCell"];
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileVoiceViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileVoiceViewCell"];
-    }
+    _profileTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _profileTableView.backgroundColor = [UIColor clearColor];
+    _profileTableView.showsVerticalScrollIndicator = NO;
+    _profileTableView.showsHorizontalScrollIndicator = NO;
+    _profileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _profileTableView.delegate = self;
+    _profileTableView.dataSource = self;
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileHeaderViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell"];
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileContentViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileContentViewCell"];
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileVoiceViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileVoiceViewCell"];
+}
     return _profileTableView;
 }
 - (void)viewDidLoad
@@ -9511,17 +9546,17 @@ static AFHTTPSessionManager *_session;
         [self.headerCell.headeImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
         
         
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-//                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-//        // 保存文件的名称
-//        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-//        NSLog(@"img:%@",img);
-//        if (img) {
-//            self.headerCell.headeImage.image = img;
-//            }else{
-//                self.headerCell.headeImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-//        }
+        //        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        //        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+        //                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        //        // 保存文件的名称
+        //        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        //        NSLog(@"img:%@",img);
+        //        if (img) {
+        //            self.headerCell.headeImage.image = img;
+        //            }else{
+        //                self.headerCell.headeImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+        //        }
         
         self.headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return self.headerCell;
@@ -9556,54 +9591,54 @@ static AFHTTPSessionManager *_session;
 /// updatename
 -(void)actionUpdateName
 {
-
+    
     NeighborsSimpleCuteChnageNameView *nameView = [[NeighborsSimpleCuteChnageNameView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
     [nameView setNeighborsSimpleCuteChnageNameViewBlcok:^(NSString * _Nonnull nameStr) {
         [SVProgressHUD show];
-                 dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             [SVProgressHUD dismiss];
-                             self.contentCell.userNameConLab.text = nameStr;
-                             NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-                             model.userInfo.nickName = nameStr;
-                             [NeighborsSimpleCuteUserModel save:model];
-                             //[[NSUserDefaults standardUserDefaults]setValue:nameStr forKey:NeighborsSimple_EmailUser];
-                             //[[NSUserDefaults standardUserDefaults]synchronize];
-                     });
+        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                self.contentCell.userNameConLab.text = nameStr;
+                NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+                model.userInfo.nickName = nameStr;
+                [NeighborsSimpleCuteUserModel save:model];
+                //[[NSUserDefaults standardUserDefaults]setValue:nameStr forKey:NeighborsSimple_EmailUser];
+                //[[NSUserDefaults standardUserDefaults]synchronize];
             });
+        });
     }];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     NSCParameterAssert(window);
     [window addSubview:nameView];
-//    NSString *nameStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailUser];
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Tip" message:@"please enter user name" preferredStyle:UIAlertControllerStyleAlert];
-//    //增加取消按钮；
-//    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-//     //增加确定按钮；
-//     [alertController addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//       UITextField *userNameTextField = alertController.textFields.firstObject;
-//         if (IS_EMPTY(userNameTextField.text)) {
-//             [SVProgressHUD showInfoWithStatus:@"please enter user name"];
-//             return;
-//         }
-//         [SVProgressHUD show];
-//         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                 dispatch_async(dispatch_get_main_queue(), ^{
-//                     [SVProgressHUD dismiss];
-//                     self.contentCell.userNameConLab.text = userNameTextField.text;
-//                     [[NSUserDefaults standardUserDefaults]setValue:userNameTextField.text forKey:NeighborsSimple_EmailUser];
-//                     [[NSUserDefaults standardUserDefaults]synchronize];
-//             });
-//         });
-//     }]];
-//     //定义第一个输入框；
-//     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//        textField.placeholder = @"please enter user name";
-//        textField.text = nameStr;
-//     }];
-//     [self presentViewController:alertController animated:true completion:nil];
+    //    NSString *nameStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailUser];
+    //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Tip" message:@"please enter user name" preferredStyle:UIAlertControllerStyleAlert];
+    //    //增加取消按钮；
+    //    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
+    //     //增加确定按钮；
+    //     [alertController addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    //       UITextField *userNameTextField = alertController.textFields.firstObject;
+    //         if (IS_EMPTY(userNameTextField.text)) {
+    //             [SVProgressHUD showInfoWithStatus:@"please enter user name"];
+    //             return;
+    //         }
+    //         [SVProgressHUD show];
+    //         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                 dispatch_async(dispatch_get_main_queue(), ^{
+    //                     [SVProgressHUD dismiss];
+    //                     self.contentCell.userNameConLab.text = userNameTextField.text;
+    //                     [[NSUserDefaults standardUserDefaults]setValue:userNameTextField.text forKey:NeighborsSimple_EmailUser];
+    //                     [[NSUserDefaults standardUserDefaults]synchronize];
+    //             });
+    //         });
+    //     }]];
+    //     //定义第一个输入框；
+    //     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    //        textField.placeholder = @"please enter user name";
+    //        textField.text = nameStr;
+    //     }];
+    //     [self presentViewController:alertController animated:true completion:nil];
 }
 
 /// select gender
@@ -9612,16 +9647,16 @@ static AFHTTPSessionManager *_session;
     [BRStringPickerView showStringPickerWithTitle:@"Gender" dataSource:self.genderListArr defaultSelValue:@"Female" isAutoSelect:NO resultBlock:^(id selectValue) {
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    NSString *genderStr = (NSString *)selectValue;
-                    self.contentCell.genderConLab.text = genderStr;
-                    [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                NSString *genderStr = (NSString *)selectValue;
+                self.contentCell.genderConLab.text = genderStr;
+                [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
-      }];
+    }];
 }
 /// select age
 -(void)actionSelectAge
@@ -9629,13 +9664,13 @@ static AFHTTPSessionManager *_session;
     [BRStringPickerView showStringPickerWithTitle:@"Age" dataSource:self.ageListArr defaultSelValue:@"18" isAutoSelect:NO resultBlock:^(id selectValue) {
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    NSString *ageStr = (NSString *)selectValue;
-                    self.contentCell.ageConLab.text = ageStr;
-                    [[NSUserDefaults standardUserDefaults]setValue:ageStr forKey:NeighborsSimple_EmailAge];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                NSString *ageStr = (NSString *)selectValue;
+                self.contentCell.ageConLab.text = ageStr;
+                [[NSUserDefaults standardUserDefaults]setValue:ageStr forKey:NeighborsSimple_EmailAge];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
     }];
@@ -9662,13 +9697,13 @@ static AFHTTPSessionManager *_session;
     }
 }
 - (void)saveImage:(UIImage *)image {
-   NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-   NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                         [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
-   BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
-   if (result == YES) {
-       NSLog(@"Save Success");
-   }
+    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                          [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
+    BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"Save Success");
+    }
 }
 @end
 
@@ -9891,11 +9926,11 @@ static AFHTTPSessionManager *_session;
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Submit successful"];
-                [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Submit successful"];
+            [self.navigationController popViewControllerAnimated:YES];
         });
     });
 }
@@ -9903,7 +9938,7 @@ static AFHTTPSessionManager *_session;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"FeedBack";
+    self.navigationItem.title = @"Feedback";
     [self NeighborsSimpleCuteSetLeftButton:[UIImage imageNamed:TUIKitResource(@"n_back")]];
     [self.view addSubview:self.contentLab];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -10001,7 +10036,7 @@ static AFHTTPSessionManager *_session;
 -(void)actionSubmitBtn
 {
     NSLog(@"actionSubmitBtnactionSubmitBtn");
-   
+    
 }
 -(void)actionFirstUplodaimage:(UIButton *)btn
 {
@@ -10161,7 +10196,7 @@ static AFHTTPSessionManager *_session;
         make.centerY.mas_equalTo(self.privacyView);
         make.right.offset(-20);
     }];
-        
+    
     [self.view addSubview:self.versionLab];
     [self.versionLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
@@ -10241,33 +10276,33 @@ static AFHTTPSessionManager *_session;
 /*
  + (NSDictionary *)mj_replacedKeyFromPropertyName
  {
-     return @{@"uuid": @"id"};
+ return @{@"uuid": @"id"};
  }
  + (void)save:(JYSUserModel *)model{
-     NSDictionary *user = model.mj_keyValues;
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     [defaults setObject:user forKey:UserModelKey];
-     [defaults synchronize];
+ NSDictionary *user = model.mj_keyValues;
+ NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+ [defaults setObject:user forKey:UserModelKey];
+ [defaults synchronize];
  }
  + (JYSUserModel *)getInfo{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     return user;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ return user;
  }
  + (BOOL)isOnline{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     if (user.token.length>0)
-         return YES;
-     return NO;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ if (user.token.length>0)
+ return YES;
+ return NO;
  }
  + (void)logout{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     [defaults removeObjectForKey:UserModelKey];
-     [defaults synchronize];
-     user = nil;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+ [defaults removeObjectForKey:UserModelKey];
+ [defaults synchronize];
+ user = nil;
  }
  */
 + (void)setMemberLevel:(NSInteger)memberLevel {
@@ -10572,14 +10607,14 @@ static AFHTTPSessionManager *_session;
         NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
         vc.isShowHidden = YES;
         vc.webTitle = @"Terms of Service";
-        vc.URLString = @"http://http://http://www.yolerapp.cn/yoler/terms.html";
+        vc.URLString = @"http://www.yolerapp.cn/yoler/terms.html";
         vc.loadType = WKWebLoadTypeWebURLString;
         [self.mm_viewController.navigationController pushViewController:vc animated:YES];
         return NO;
     } else if ([[URL scheme] isEqualToString:@"privacy"]) {
         NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
         vc.webTitle = @"Privacy Policy";
-        vc.URLString = @"http://http://www.yolerapp.cn/yoler/privacy.html";
+        vc.URLString = @"http://www.yolerapp.cn/yoler/privacy.html";
         vc.isShowHidden = YES;
         vc.loadType = WKWebLoadTypeWebURLString;
         [self.mm_viewController.navigationController pushViewController:vc animated:YES];
@@ -10638,14 +10673,14 @@ static AFHTTPSessionManager *_session;
         NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
         vc.isShowHidden = YES;
         vc.webTitle = @"Terms of Service";
-        vc.URLString = @"http://http://www.yolerapp.cn/yoler/terms.html";
+        vc.URLString = @"http://www.yolerapp.cn/yoler/terms.html";
         vc.loadType = WKWebLoadTypeWebURLString;
         [self.mm_viewController.navigationController pushViewController:vc animated:YES];
         return NO;
     } else if ([[URL scheme] isEqualToString:@"privacy"]) {
         NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
         vc.webTitle = @"Privacy Policy";
-        vc.URLString = @"http://http://www.yolerapp.cn/yoler/privacy.html";
+        vc.URLString = @"http://www.yolerapp.cn/yoler/privacy.html";
         vc.isShowHidden = YES;
         vc.loadType = WKWebLoadTypeWebURLString;
         [self.mm_viewController.navigationController pushViewController:vc animated:YES];
@@ -10672,7 +10707,7 @@ static AFHTTPSessionManager *_session;
         _contiue_btn.layer.cornerRadius = 25.0f;
         _contiue_btn.layer.masksToBounds = YES;
         [_contiue_btn addTarget:self action:@selector(actionContiueBtn:) forControlEvents:UIControlEventTouchUpInside];
-       [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-80), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
+        [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-80), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
     }
     return _contiue_btn;
 }
@@ -10725,7 +10760,7 @@ static AFHTTPSessionManager *_session;
         _contiue_btn.layer.cornerRadius = 10.0f;
         _contiue_btn.layer.masksToBounds = YES;
         [_contiue_btn addTarget:self action:@selector(actionContiueBtn:) forControlEvents:UIControlEventTouchUpInside];
-       [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-40), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
+        [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-40), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
     }
     return _contiue_btn;
 }
@@ -11050,53 +11085,53 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"setCxshareldstaretlRightBtn");
     
-     NSLog(@"Restore btn");
-     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-     [SVProgressHUD show];
-     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
-         NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
-         if (!error && payment.transactions.count) {
-             if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
-                 NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-                 [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
-                     NSDictionary *dics = [response getCxshareldstaretlToDictionary];
-                     NSLog(@"dics:%@",dics);
-                     if ([dics[@"status"] intValue] == 21007) {
-                         [IAPShare sharedHelper].iap.production = YES;
-                         [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
-                                 if (error) {
-                                    [SVProgressHUD dismiss];
-                                    [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                                 } else {
-                                     [SVProgressHUD dismiss];
-                                     [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                                     [self actionAddRecordWithResposeoneData:response];
-                                 }
-                         }];
-                     } else {
-                         if (error) {
+    NSLog(@"Restore btn");
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD show];
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
+        if (!error && payment.transactions.count) {
+            if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
+                NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+                [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
+                    NSDictionary *dics = [response getCxshareldstaretlToDictionary];
+                    NSLog(@"dics:%@",dics);
+                    if ([dics[@"status"] intValue] == 21007) {
+                        [IAPShare sharedHelper].iap.production = YES;
+                        [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
+                            if (error) {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
+                            } else {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                                [self actionAddRecordWithResposeoneData:response];
+                            }
+                        }];
+                    } else {
+                        if (error) {
                             [SVProgressHUD dismiss];
                             [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                         } else {
-                             [SVProgressHUD dismiss];
-                             [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                             [self actionAddRecordWithResposeoneData:response];
-                         }
-                     }
-                 }];
-             } else {
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                 //update local data
-                 NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                 userModel.userInfo.memberLevel = 1;
-                 [NeighborsSimpleCuteUserModel save:userModel];
-             }
-         } else {
-             [SVProgressHUD dismiss];
-             [SVProgressHUD showInfoWithStatus:@"Please select membership"];
-         }
-     }];
+                        } else {
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                            [self actionAddRecordWithResposeoneData:response];
+                        }
+                    }
+                }];
+            } else {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                //update local data
+                NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                userModel.userInfo.memberLevel = 1;
+                [NeighborsSimpleCuteUserModel save:userModel];
+            }
+        } else {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please select membership"];
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -11128,7 +11163,7 @@ static AFHTTPSessionManager *_session;
     KJBannerView *banner = [[KJBannerView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,180)];
     banner.delegate = self;
     banner.dataSource = self;
-
+    
     [banner registerClass:[ZFBananerCollectionOtherViewCell class] forCellWithReuseIdentifier:@"ZFBananerCollectionOtherViewCell"];
     banner.itemSpace = 10;
     banner.delegate = self;
@@ -11242,7 +11277,7 @@ static AFHTTPSessionManager *_session;
         [self.view layoutIfNeeded];
     }
                      completion:^(BOOL finished) {
-                    
+        
     }];
 }
 #pragma mark -- ZFMemberUpgrdeController | UICollectionViewDelegate,UICollectionViewDataSource
@@ -11268,7 +11303,7 @@ static AFHTTPSessionManager *_session;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     if(indexPath.section == 0){
+    if(indexPath.section == 0){
         return CGSizeMake((SCREEN_WIDTH-50)/2, 150);
     }else if(indexPath.section == 1){
         return CGSizeMake(SCREEN_WIDTH, 50);
@@ -11461,10 +11496,10 @@ static AFHTTPSessionManager *_session;
             ZFMemberUpgradeIAPModel *model = [ZFMemberUpgradeIAPModel mj_objectWithKeyValues:[NeighborsSimpleCuteUserModel locaOrderInfo]];
             model.reRequestInt -= 1;
             [NeighborsSimpleCuteUserModel setLocaOrderInfo:[model mj_JSONObject]];
-            }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:error.domain];
-            return;
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+        return;
     }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -11576,53 +11611,53 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"setCxshareldstaretlRightBtn");
     
-     NSLog(@"Restore btn");
-     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-     [SVProgressHUD show];
-     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
-         NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
-         if (!error && payment.transactions.count) {
-             if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
-                 NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-                 [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
-                     NSDictionary *dics = [response getCxshareldstaretlToDictionary];
-                     NSLog(@"dics:%@",dics);
-                     if ([dics[@"status"] intValue] == 21007) {
-                         [IAPShare sharedHelper].iap.production = YES;
-                         [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
-                                 if (error) {
-                                    [SVProgressHUD dismiss];
-                                    [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                                 } else {
-                                     [SVProgressHUD dismiss];
-                                     [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                                     [self actionAddRecordWithResposeoneData:response];
-                                }
-                         }];
-                     } else {
-                         if (error) {
+    NSLog(@"Restore btn");
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD show];
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
+        if (!error && payment.transactions.count) {
+            if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
+                NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+                [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
+                    NSDictionary *dics = [response getCxshareldstaretlToDictionary];
+                    NSLog(@"dics:%@",dics);
+                    if ([dics[@"status"] intValue] == 21007) {
+                        [IAPShare sharedHelper].iap.production = YES;
+                        [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
+                            if (error) {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
+                            } else {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                                [self actionAddRecordWithResposeoneData:response];
+                            }
+                        }];
+                    } else {
+                        if (error) {
                             [SVProgressHUD dismiss];
                             [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                         } else {
-                             [SVProgressHUD dismiss];
-                             [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                             [self actionAddRecordWithResposeoneData:response];
-                         }
-                     }
-                 }];
-             } else {
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                 //update local data
-                 NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                 userModel.userInfo.memberLevel = 1;
-                 [NeighborsSimpleCuteUserModel save:userModel];
-             }
-         } else {
-             [SVProgressHUD dismiss];
-             [SVProgressHUD showInfoWithStatus:@"Please select membership"];
-         }
-     }];
+                        } else {
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                            [self actionAddRecordWithResposeoneData:response];
+                        }
+                    }
+                }];
+            } else {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                //update local data
+                NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                userModel.userInfo.memberLevel = 1;
+                [NeighborsSimpleCuteUserModel save:userModel];
+            }
+        } else {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please select membership"];
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -11655,7 +11690,7 @@ static AFHTTPSessionManager *_session;
     KJBannerView *banner = [[KJBannerView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,180)];
     banner.delegate = self;
     banner.dataSource = self;
-
+    
     [banner registerClass:[ZFBananerCollectionViewCell class] forCellWithReuseIdentifier:@"ZFBananerCollectionViewCell"];
     banner.itemSpace = 10;
     banner.delegate = self;
@@ -11768,7 +11803,7 @@ static AFHTTPSessionManager *_session;
         [self.view layoutIfNeeded];
     }
                      completion:^(BOOL finished) {
-                    
+        
     }];
 }
 #pragma mark -- ZFMemberUpgrdeController | UICollectionViewDelegate,UICollectionViewDataSource
@@ -11794,7 +11829,7 @@ static AFHTTPSessionManager *_session;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     if(indexPath.section == 0){
+    if(indexPath.section == 0){
         return CGSizeMake((SCREEN_WIDTH-50)/2, 130);
     }else if(indexPath.section == 1){
         return CGSizeMake(SCREEN_WIDTH, 50);
@@ -11987,10 +12022,10 @@ static AFHTTPSessionManager *_session;
             ZFMemberUpgradeIAPModel *model = [ZFMemberUpgradeIAPModel mj_objectWithKeyValues:[NeighborsSimpleCuteUserModel locaOrderInfo]];
             model.reRequestInt -= 1;
             [NeighborsSimpleCuteUserModel setLocaOrderInfo:[model mj_JSONObject]];
-            }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:error.domain];
-            return;
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+        return;
     }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -12034,7 +12069,7 @@ static AFHTTPSessionManager *_session;
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self.textColor set];
     
-//    CGRect textRect;
+    //    CGRect textRect;
     
     if (self.textAlignment == NSTextAlignmentLeft) {
         textRect = CGRectMake(rect.origin.x, rect.origin.y + (rect.size.height - textSize.height)/2.0, textSize.width, textSize.height);
@@ -12074,7 +12109,7 @@ static AFHTTPSessionManager *_session;
     CGGradientRelease(gradient);
     CFRelease(alphaMask);
 }
-    
+
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //
 //    // 获取文字mask
@@ -12116,70 +12151,70 @@ static AFHTTPSessionManager *_session;
 @implementation XSDKResourceUtil
 
 +(float)measureMutilineStringHeight:(NSString*)str andFont:(UIFont*)wordFont andWidthSetup:(float)width{
-
+    
     if (str == nil || width <= 0) return 0;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return ceil(measureSize.height);
-
+    
 }
 
 // 传一个字符串和字体大小来返回一个字符串所占的宽度
 
 +(float)measureSinglelineStringWidth:(NSString*)str andFont:(UIFont*)wordFont{
-
+    
     if (str == nil) return 0;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return ceil(measureSize.width);
-
+    
 }
 
 +(CGSize)measureSinglelineStringSize:(NSString*)str andFont:(UIFont*)wordFont
 
 {
-
+    
     if (str == nil) return CGSizeZero;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return measureSize;
-
+    
 }
 
- 
+
 
 //+(UIImage*)imageAt:(NSString*)imgNamePath{
 
@@ -12193,62 +12228,62 @@ static AFHTTPSessionManager *_session;
 
 //}
 
- 
+
 
 +(BOOL)xsdkcheckName:(NSString*)name{
-
+    
     if([XSDKResourceUtil xsdkstringIsnilOrEmpty:name]){
-
+        
         return NO;
-
+        
     }else{
-
+        
         if(name.length < 5){
-
+            
             return NO;
-
+            
         }
-
         
-
+        
+        
         if(name.length > 20){
-
+            
             return NO;
-
+            
         }
-
         
-
+        
+        
         NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^[a-zA-Z][a-zA-Z0-9_]*$"];
-
+        
         if(![pred evaluateWithObject:name]){
-
+            
             return [XSDKResourceUtil xsdkcheckPhone:name];
-
+            
         }
-
+        
     }
-
+    
     return YES;
-
+    
 }
 
- 
+
 
 +(BOOL)xsdkcheckPhone:(NSString *)userphone
 
 {
-
+    
     NSPredicate * phone = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1\\d{10}"];
-
+    
     if (![phone evaluateWithObject:userphone]) {
-
+        
         return NO;
-
+        
     }
-
+    
     return YES;
-
+    
 }
 +(BOOL)xsdkstringIsnilOrEmpty:(NSString*)string{
     if (string == nil || [string isKindOfClass:[NSNull class]]  || [string isEqualToString:@""]) {
@@ -12262,67 +12297,67 @@ static AFHTTPSessionManager *_session;
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     // String should be 6 or 8 characters
     if ([cString length] < 6)
-
+        
     {
-
+        
         return [UIColor clearColor];
-
+        
     }
-
-    // strip 0X if it appears
-
-    //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
-
-    if ([cString hasPrefix:@"0X"])
-
-    {
-
-        cString = [cString substringFromIndex:2];
-
-    }
-
-    //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
-
-    if ([cString hasPrefix:@"#"])
-
-    {
-
-        cString = [cString substringFromIndex:1];
-
-    }
-
-    if ([cString length] != 6)
-
-    {
-
-        return [UIColor clearColor];
-
-    }
-
     
-
+    // strip 0X if it appears
+    
+    //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
+    
+    if ([cString hasPrefix:@"0X"])
+        
+    {
+        
+        cString = [cString substringFromIndex:2];
+        
+    }
+    
+    //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
+    
+    if ([cString hasPrefix:@"#"])
+        
+    {
+        
+        cString = [cString substringFromIndex:1];
+        
+    }
+    
+    if ([cString length] != 6)
+        
+    {
+        
+        return [UIColor clearColor];
+        
+    }
+    
+    
+    
     // Separate into r, g, b substrings
-
+    
     NSRange range;
-
+    
     range.location = 0;
-
+    
     range.length = 2;
-
+    
     //r
-
+    
     NSString *rString = [cString substringWithRange:range];
-
+    
     //g
-
+    
     range.location = 2;
-
+    
     NSString *gString = [cString substringWithRange:range];
-
+    
     //b
-
+    
     range.location = 4;
-
+    
     NSString *bString = [cString substringWithRange:range];
     // Scan values
     unsigned int r, g, b;
