@@ -4952,11 +4952,6 @@
 }
 -(void)actionPlayBtn:(UIButton *)sender{
     
-    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-        if (granted) {
-        // Microphone enabled code‘
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
             NSLog(@"actionPlayBtnactionPlayBtn");
             sender.selected = !sender.selected;
             if (sender.selected) {
@@ -4981,15 +4976,7 @@
                 [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
                 self.timer.fireDate=[NSDate distantFuture];
             }
-            
-        });
-        }else{
-            
-            
-        }
-        
-    }];
-    
+ 
 }
 
 - (UIImageView *)iconImg
@@ -6302,6 +6289,7 @@ static AFHTTPSessionManager *_session;
         [headerCell.nameBtn setTitle:userName forState:UIControlStateNormal];
         if ([self.memberLevel intValue] == 1) {
             [headerCell.nameBtn setImage:[UIImage imageNamed:TUIKitResource(@"name_huang")] forState:UIControlStateNormal];
+            [headerCell.nameBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, -5)];
         }else{
             [headerCell.nameBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         }
