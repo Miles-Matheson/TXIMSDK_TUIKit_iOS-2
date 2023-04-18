@@ -668,7 +668,7 @@
 -(void)actionAutoLogin
 {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    NSString *baseUrl = [NSString stringWithFormat:@"%@%@",NSC_Base_Url,@"api/client/info/81002001"];
+    NSString *baseUrl = [NSString stringWithFormat:@"%@%@",NSC_Base_Url,@"api/client/info/810011001"];
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]GET:baseUrl parameters:param success:^(NSDictionary *response) {
         NeighborsSimpleCuteResposeModel *response2 = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:response];
             if(response2.code == 0) {
@@ -774,7 +774,7 @@
 {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"84";
-    param[@"clientNum"] = @"81002001";
+    param[@"clientNum"] = @"810011001";
     param[@"email"] = accountStr;
     param[@"password"] = pwdStr;
     param[@"type"] = @"email";
@@ -848,7 +848,7 @@
     NSLog(@"accountStr:%@",accountStr);
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"84";
-    param[@"clientNum"] = @"81002001";
+    param[@"clientNum"] = @"810011001";
     param[@"email"] = accountStr;
     param[@"nickName"] = [NSString stringWithFormat:@"%@%@",timeStr,charter];
     param[@"password"] = @"123456";
@@ -1181,7 +1181,7 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"]   = @"84"; //84 113   输入账号登陆
-    param[@"clientNum"] = @"81002001"; //84001001 //8060000  806002001001
+    param[@"clientNum"] = @"810011001"; //84001001 //8060000  806002001001
     param[@"email"]     = self.email_tf.text;
     param[@"password"]  = self.pwd_tf.text;
     param[@"type"]      = @"email";
@@ -1645,7 +1645,7 @@
     [SVProgressHUD show];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"84";
-    param[@"clientNum"] = @"81002001";
+    param[@"clientNum"] = @"810011001";
     param[@"email"] = self.email_tf.text;
     param[@"nickName"] = self.username_tf.text;
     param[@"password"]     = self.pwd_tf.text;
@@ -2023,7 +2023,7 @@
 {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"]   = @"84"; //84
-    param[@"clientNum"] = @"81002001"; //84001001
+    param[@"clientNum"] = @"810011001"; //84001001
     param[@"email"]          = self.emailStr;
     param[@"password"]       = self.pwdStr;
     param[@"type"]           = @"email";
@@ -3227,7 +3227,7 @@
     NSMutableDictionary *param  = [NSMutableDictionary dictionary];
     NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     param[@"appType"] = @"85";//是suprise系统的，这个系统如果修改apptype需要修改两个地方。
-    param[@"clientNum"] = @"81002001";
+    param[@"clientNum"] = @"810011001";
     if (model.userInfo.gender == 0) {
         param[@"gender"] = @"0";
     }else if(model.userInfo.gender == 1){
@@ -6251,18 +6251,18 @@ static AFHTTPSessionManager *_session;
         NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
         NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
         NSLog(@"imageUrlimageUrl:%@",imageUrl);
-//        [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-        // 保存文件的名称
-        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-        NSLog(@"img:%@",img);
-        if (img) {
-                headerCell.iconImg.image = img;
-            }else{
-                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-        }
+        [headerCell.iconImg sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+//                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+//        // 保存文件的名称
+//        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+//        NSLog(@"img:%@",img);
+//        if (img) {
+//                headerCell.iconImg.image = img;
+//            }else{
+//                headerCell.iconImg.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+//        }
         NSString *userName = [NeighborsSimpleCuteUserModel getUserInfo].userInfo.nickName;
         [headerCell.nameBtn setTitle:userName forState:UIControlStateNormal];
         if ([self.memberLevel intValue] == 1) {
@@ -9505,23 +9505,23 @@ static AFHTTPSessionManager *_session;
 {
     if (indexPath.section == 0) {
         self.headerCell = [tableView dequeueReusableCellWithIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell" forIndexPath:indexPath];
-//        NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
-//        NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
-//        NSLog(@"imageUrlimageUrl:%@",imageUrl);
-//        [self.headerCell.headeImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
+        NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
+        NSString *imageUrl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
+        NSLog(@"imageUrlimageUrl:%@",imageUrl);
+        [self.headerCell.headeImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg.png")]];
         
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-        // 保存文件的名称
-        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-        NSLog(@"img:%@",img);
-        if (img) {
-            self.headerCell.headeImage.image = img;
-            }else{
-                self.headerCell.headeImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-        }
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+//                                      [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+//        // 保存文件的名称
+//        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+//        NSLog(@"img:%@",img);
+//        if (img) {
+//            self.headerCell.headeImage.image = img;
+//            }else{
+//                self.headerCell.headeImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
+//        }
         
         self.headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return self.headerCell;
@@ -10968,7 +10968,7 @@ static AFHTTPSessionManager *_session;
 @end
 
 //#define UpgradeSecret2 @"0bfb984514a14ba8a89198f5911fc1fa" //共享数据
-#define UpgradeSecret2 @"f2c46f2c7a15487f9858a78a28fc2203" // hooil-APP
+#define UpgradeSecret2 @"2cb9ac15137946a2aabfc9b5c3de9b6e" // hooil-APP
 // 新会员功能
 @interface ZFMemberUpgrdeOtherController()<UICollectionViewDelegate,UICollectionViewDataSource,KJBannerViewDelegate,KJBannerViewDataSource>
 @property (nonatomic,strong)UIButton *restoreOtherBtn;
@@ -11005,7 +11005,7 @@ static AFHTTPSessionManager *_session;
 {
     if (!_identityListArrOther) {
         //_identityListArrOther = [NSMutableArray arrayWithObjects:@"cooil_1_month",@"cooil_3_months",@"cooil_6_months",@"cooil_12_months",nil];
-        _identityListArrOther = [NSMutableArray arrayWithObjects:@"hooil_1_month",@"hooil_3_months",@"hooil_6_months",@"hooil_12_months",nil];
+        _identityListArrOther = [NSMutableArray arrayWithObjects:@"yoler_1_month",@"yoler_3_months",@"yoler_6_months",@"yoler_12_months",nil];
     }
     return _identityListArrOther;
 }
@@ -11182,25 +11182,25 @@ static AFHTTPSessionManager *_session;
                 NSMutableArray *array = [NSMutableArray array];
                 [array addObjectsFromArray:response.products];
                 [array enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_1_month"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_1_month"]) {
                         [self.productListArrOther addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_3_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_3_months"]) {
                         [self.productListArrOther addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_6_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_6_months"]) {
                         [self.productListArrOther addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_12_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_12_months"]) {
                         [self.productListArrOther addObject:obj];
                         *stop = YES;
                     }
@@ -11492,7 +11492,7 @@ static AFHTTPSessionManager *_session;
 @end
 
 //#define UpgradeSecret @"0bfb984514a14ba8a89198f5911fc1fa"// cooil
-#define UpgradeSecret @"f2c46f2c7a15487f9858a78a28fc2203"// hooil-app
+#define UpgradeSecret @"2cb9ac15137946a2aabfc9b5c3de9b6e"// hooil-app
 @interface ZFMemberUpgrdeController ()<UICollectionViewDelegate,UICollectionViewDataSource,KJBannerViewDelegate,KJBannerViewDataSource>
 @property (nonatomic,strong)UIButton *restoreBtn;
 @property (nonatomic,strong)UIView *bottomView;
@@ -11531,7 +11531,7 @@ static AFHTTPSessionManager *_session;
 {
     if (!_identityListArr) {
         //_identityListArr = [NSMutableArray arrayWithObjects:@"cooil_1_month",@"cooil_3_months",@"cooil_6_months",@"cooil_12_months",nil];
-        _identityListArr = [NSMutableArray arrayWithObjects:@"hooil_1_month",@"hooil_3_months",@"hooil_6_months",@"hooil_12_months",nil];
+        _identityListArr = [NSMutableArray arrayWithObjects:@"yoler_1_month",@"yoler_3_months",@"yoler_6_months",@"yoler_12_months",nil];
     }
     return _identityListArr;
 }
@@ -11708,25 +11708,25 @@ static AFHTTPSessionManager *_session;
                 NSMutableArray *array = [NSMutableArray array];
                 [array addObjectsFromArray:response.products];
                 [array enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_1_month"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_1_month"]) {
                         [self.productListArr addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_3_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_3_months"]) {
                         [self.productListArr addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_6_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_6_months"]) {
                         [self.productListArr addObject:obj];
                         *stop = YES;
                     }
                 }];
                 [response.products enumerateObjectsUsingBlock:^(SKProduct  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.productIdentifier isEqualToString:@"hooil_12_months"]) {
+                    if ([obj.productIdentifier isEqualToString:@"yoler_12_months"]) {
                         [self.productListArr addObject:obj];
                         *stop = YES;
                     }
